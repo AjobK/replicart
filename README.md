@@ -1,5 +1,16 @@
 # Replicart
+## Landing page  
+This page will be seen upon accessing the website  
 
+![Landing page](https://i.imgur.com/anA1ghU.png)
+
+## Overview page  
+This page will be seen upon accessing replicas catalogue  
+
+![Overview page](https://i.imgur.com/F6yEJs1.jpg)
+
+---
+# Auto generated
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
 ## Development server
