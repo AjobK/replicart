@@ -1,0 +1,59 @@
+<header class="mobile-header">
+    <div class="mobile-header-offset"></div>
+    <div class="mobile-header-wrapper">
+        <div>
+            <a [routerLink]="['/']">
+                <img class="logo" src="../../../assets/icons/logo-black.svg" />
+            </a>
+            <app-hamburger
+                (click)="toggleMenu()"
+            ></app-hamburger>
+        </div>
+        <div [ngClass]="{ open: menuOpen }">
+            <nav>
+                <a
+                    *ngFor="let link of links;"
+                    [routerLink]="[link[1]]"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}"
+                >
+                    {{ link[0] }}
+                </a>
+                <a
+                    [routerLink]="['/checkout']"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}"
+                    class="basket"
+                >
+                    <div>
+                        <span>Checkout</span>
+                        <img src="../../../assets/icons/basket-white.svg" />
+                    </div>
+                    <span *ngIf="basketSize > 0">{{ basketSize > 9 ? '9+' : basketSize }}</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+</header>
+<header class="desktop-header">
+    <div>
+        <a [routerLink]="['/']">
+            <img class="logo" src="../../../assets/icons/logo-black.svg" />
+        </a>
+        <a [routerLink]="['/checkout']" class="basket">
+            <img src="../../../assets/icons/basket.svg" />
+            <span *ngIf="basketSize > 0">{{ basketSize > 9 ? '9+' : basketSize }}</span>
+        </a>
+    </div>
+    <nav>
+        <a
+            *ngFor="let link of links;"
+            [routerLink]="[link[1]]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+        >
+            {{ link[0] }}
+            <span class="underline"></span>
+        </a>
+    </nav>
+</header>

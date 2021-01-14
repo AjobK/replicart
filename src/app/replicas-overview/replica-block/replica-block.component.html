@@ -1,0 +1,11 @@
+<article>
+    <img src="{{ replica.imageUrl }}" />
+    <div>
+        <p class="list-group-item-text">{{ replica.artist }} <br /> {{ replica.origin }}</p>
+        <div>
+            <h3> {{ replica.cost }} EU </h3>
+            <h4> {{ replica.name }} </h4>
+        </div>
+        <button class="btn small alt-hover" (click)="addToCart()">ADD TO CART</button>
+    </div>
+</article>

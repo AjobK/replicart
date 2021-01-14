@@ -1,0 +1,251 @@
+@import '../../variables';
+
+header {
+    background-color: $background-color;
+    &.desktop-header {
+        position: relative;
+        padding: 2vw 2vw 1vw 2vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+
+        > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            vertical-align: middle;
+
+            > a {
+                display: flex;
+                img.logo {
+                    height: 62px;
+                }
+            }
+
+            a.basket {
+                position: relative;
+                color: $primary-color;
+                text-decoration: none;
+
+                > img {
+                    transition: 0.2s;
+                    height: 45px;
+                }
+
+                > span {
+                    transition: 0.2s;
+                    display: flex;
+                    position: absolute;
+                    bottom: -5px;
+                    right: -2px;
+                    background-color: $secondary-tone;
+                    font-size: 10pt;
+                    line-height: 10pt;
+                    border-radius: 100vh;
+                    min-width: 15pt;
+                    padding: 1pt 5pt 0 5pt;
+                    height: 15pt;
+                    font-weight: bold;
+                    text-align: center;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                &:hover {
+                    > img {
+                        transition: 0.2s;
+                        transform: rotate(-5deg) scale(0.9);
+                    }
+
+                    > span {
+                        transition: 0.2s;
+                        transform: scale(1.2);
+                    }
+                }
+            }
+        }
+
+        @media only screen and (min-width: $desktop-large) {
+            padding: 30px 30px 15px 30px;
+        }
+    }
+
+    &.mobile-header {
+        display: none;
+
+        > div.mobile-header-offset {
+            height: calc(50px + 4vw);
+            width: 100%;
+        }
+
+        > div.mobile-header-wrapper {
+            opacity: 1;
+            position: fixed;
+            background-color: $background-color;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+
+            > div:first-child {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 2vw;
+                z-index: 2;
+                
+                > a {
+                    text-decoration: none;
+                    margin-bottom: -7px;
+                    img.logo {
+                        height: 50px;
+                    }
+                }
+            }
+
+            > div:last-child {
+                transition: 0.2s;
+                height: 0;
+                overflow: hidden;
+                background-color: $background-color;
+
+                > nav {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    z-index: 1;
+                    background-color: lighten($primary-color, 10%);
+
+                    > a {
+                        color: rgba($background-color, 0.5);
+                        font-size: 16pt;
+                        line-height: 16pt;
+                        padding: 16pt 2vw;
+                        width: 100%;
+
+                        &:nth-child(odd) {
+                            background-color: rgba($primary-color, 0.1);
+                        }
+
+                        &:active {
+                            transition: 0.2s;
+                            background-color: $primary-color;
+                            color: $background-color;
+                            font-weight: bold;
+                            padding-left: calc(2vw + 10px); 
+                        }
+
+                        &.active, &.active.basket > div > span {
+                            color: rgba($background-color, 1);
+                        }
+
+                        &.basket {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+
+                            &.active > div > img {
+                                opacity: 1;
+                            }
+
+                            > div {
+                                position: relative;
+                                color: $primary-color;
+                                text-decoration: none;
+                                vertical-align: middle;
+
+                                > span {
+                                    color: rgba($background-color, 0.5);
+                                    font-size: 16pt;
+                                    line-height: 16pt;
+                                    width: 100%;
+                                }
+
+                                > img {
+                                    margin-left: 10px;
+                                    transition: 0.2s;
+                                    height: 12pt;
+
+                                    opacity: 0.5;
+                                }
+                            }
+
+                            > span {
+                                color: $primary-color;
+                                transition: 0.2s;
+                                display: flex;
+                                background-color: $secondary-tone;
+                                font-size: 10pt;
+                                line-height: 10pt;
+                                border-radius: 100vh;
+                                min-width: 15pt;
+                                padding: 1pt 5pt 0 5pt;
+                                height: 15pt;
+                                font-weight: bold;
+                                text-align: center;
+                                justify-content: center;
+                                align-items: center;
+                            }
+                        }
+                    }
+                }
+
+                &.open {
+                    transition: 0.2s;
+                    height: calc((16pt + 32pt) * 4 - 3px);
+                }
+            }
+        }
+
+    }
+}
+
+@media only screen and (max-width: $mobile-large) {
+    header.mobile-header {
+        display: flex;
+    }
+
+    header.desktop-header {
+        display: none;
+    }
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    
+    > a {
+        position: relative;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: $primary-color;
+        font-size: 14pt;
+        margin-right: 20px;
+        line-height: 14pt;
+
+        &.active {
+            font-weight: bold;
+        }
+
+        &:hover, &:active {
+            > span.underline {
+                transition: 0.2s;
+                width: 100%;
+            }
+        }
+
+        > span.underline {
+            transition: 0.2s;
+            position: absolute;
+            height: 2px;
+            background-color: $primary-color;
+            width: 0%;
+            bottom: -2px;
+            left: 0;
+        }
+    }
+}

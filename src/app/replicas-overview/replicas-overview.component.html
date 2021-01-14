@@ -1,0 +1,41 @@
+<app-navigation></app-navigation>
+<section *ngIf="columnSize == 4"> <!-- Visibility hidden on certain size -->
+    <div
+        *ngFor="let a of [0, 1, 2, 3];"
+    >
+        <app-replica-block
+        *ngFor="let replicaEl of replicaLists[a]; let i = index"
+        [replica]="replicaEl"
+        [index]="i"></app-replica-block>
+    </div>
+</section>
+<section *ngIf="columnSize == 3"> <!--  Visibility hidden on certain size -->
+    <div
+        *ngFor="let a of [0, 1, 2];"
+    >
+        <app-replica-block
+        *ngFor="let replicaEl of replicaLists[a]; let i = index"
+        [replica]="replicaEl"
+        [index]="i"></app-replica-block>
+    </div>
+</section>
+<section *ngIf="columnSize == 2">
+    <div
+        *ngFor="let a of [0, 1];"
+    >
+        <app-replica-block
+        *ngFor="let replicaEl of replicaLists[a]; let i = index"
+        [replica]="replicaEl"
+        [index]="i"></app-replica-block>
+    </div>
+</section>
+<section *ngIf="columnSize == 1">
+    <div
+        *ngFor="let a of [0];"
+    >
+        <app-replica-block
+        *ngFor="let replicaEl of replicaLists[a]; let i = index"
+        [replica]="replicaEl"
+        [index]="i"></app-replica-block>
+    </div>
+</section>

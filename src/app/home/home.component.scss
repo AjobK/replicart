@@ -1,0 +1,102 @@
+main {
+    height: 100vh;
+    display: flex;
+    align-items: stretch;
+
+    h2 {
+        text-align: center;
+        font-size: 36pt;
+        font-weight: normal;
+        width: 80%;
+        margin-bottom: 10vh;
+    }
+
+    img {
+        width: 60%;
+        margin-bottom: 5vh;
+    }
+
+    > section:first-child {
+        flex: 1;
+        min-width: 550px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    > section:last-child {
+        position: relative;
+        background-image: url('../../assets/backgrounds/girl-with-earring.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position-y: 20%;
+        flex: 2;
+        background-color: #333;
+
+        .background-overlay, .container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .background-overlay {
+            background-color: #191919;
+            opacity: 0.9;
+            z-index: 0;
+        }
+
+        .container {
+            padding: 65px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            > img {
+                width: 250px;
+            }
+
+            > .quote {
+                text-align: right;
+                color: white;
+                font-size: 36pt;
+                line-height: 40pt;
+
+                > span {
+                    font-size: 18pt;
+                    line-height: 18pt;
+                    opacity: 0.5;
+
+                    &::before {
+                        content: '-';
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) and (orientation: portrait) {
+    main {
+        justify-content: center;
+        > section {
+            min-width: auto;
+            max-width: 400px;
+        }
+
+        > section:first-child {
+            min-width: 400px;
+            width: 100%;
+            max-width: 550px;
+        }
+
+        > section:last-child {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,76 @@
+@import '../../variables';
+
+article {
+    background-color: rgba(0,0,0,0.25);
+    margin-bottom: 2vw;
+    position: relative;
+
+    > img {
+        width: 100%;
+        margin-bottom: -7px;
+        padding: 0;
+    }
+
+    > div {
+        transition: 0.2s;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(180deg, rgba($primary-tone, 0.8) 0%, rgba($secondary-tone, 0.8) 100%);
+
+        > p {
+            color: rgba(0,0,0,0.8);
+            font-size: 10pt;
+            line-height: 11pt;
+            text-align: right;
+            align-self: flex-end;
+        }
+
+        > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            > h3 {
+                color: #262626;
+                font-size: 28pt;
+                text-align: center;
+            }
+            
+            > h4 {
+                color: rgba(0,0,0,0.8);
+                text-align: center;
+                width: 80%;
+                font-size: 12pt;
+                line-height: 16pt;
+                font-weight: normal;
+            }
+        }
+
+        &:hover {
+            transition: 0.2s;
+            opacity: 1;
+        }
+
+        > button {
+            margin-bottom: 15px;
+
+            @media only screen and (max-width: $desktop-large) {
+                margin-bottom: 5px;
+            }
+        }
+    }
+    
+
+    @media only screen and (min-width: $desktop-large) {
+        margin-bottom: 30px;
+    }
+}

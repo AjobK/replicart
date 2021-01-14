@@ -1,0 +1,21 @@
+@import '../variables';
+
+section {
+    padding: 0 2vw;
+    width: 100%;
+    display: flex;
+
+    > div {
+        &:not(:last-child) {
+            margin-right: 2vw;
+
+            @media only screen and (min-width: $desktop-large) {
+                margin-right: 30px;
+            }
+        }
+    }
+
+    @media only screen and (min-width: $desktop-large) {
+        padding: 0 30px;
+    }
+}
