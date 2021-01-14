@@ -11,6 +11,7 @@ import { NavigationComponent } from './shared/navigation/navigation.component';
 import { HamburgerComponent } from './shared/hamburger/hamburger.component';
 import { BasketService } from './shared/basket.service';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { CheckoutItemComponent } from './checkout/checkout-item/checkout-item.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ReplicaBlockComponent,
     NavigationComponent,
     HamburgerComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    CheckoutItemComponent
   ],
   imports: [
     BrowserModule,

@@ -25,4 +25,13 @@ export class Basket {
     getReplicas() {
         return this.storedReplicas;
     }
+
+    getTotalCost() {
+        let totalCost: number = 0;
+
+        for (let i = 0; i < this.storedReplicas.length; i++)
+            totalCost += this.storedReplicas[i].amount * this.storedReplicas[i].replica.cost;
+
+        return totalCost;
+    }
 }

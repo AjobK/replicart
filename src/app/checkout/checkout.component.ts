@@ -11,7 +11,7 @@ import { Replica } from '../shared/replica.model';
 export class CheckoutComponent implements OnInit {
   @Output() replicaList: Array<{replica: Replica, amount: number}> = [];
 
-  constructor(private basketService: BasketService, private elementRef: ElementRef) { }
+  constructor(public basketService: BasketService, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.basketService.basketChanged.subscribe(

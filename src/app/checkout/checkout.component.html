@@ -3,16 +3,9 @@
     <article *ngIf="replicaList.length <= 0" class="order-item no-items">
         No items added to shopping basket...
     </article>
-    <article *ngFor="let replicaItem of replicaList" class="order-item">
-        <div class="replica-art-border">
-            <img src="{{ replicaItem.replica.imageUrl }}" class="replica-art" draggable="false"/>
-        </div>
-        <div class="order-info">
-            <h2>{{ replicaItem.replica.name }}</h2>
-            <p>{{ replicaItem.replica.artist }} - {{ replicaItem.replica.origin }}</p>
-            <sub>Cost: {{ replicaItem.amount }} x {{ replicaItem.replica.cost }} = {{ replicaItem.replica.cost * replicaItem.amount }} EU</sub>
-        </div>
-    </article>
+    <app-checkout-item *ngFor="let replicaItem of replicaList" [replicaItem]="replicaItem"></app-checkout-item>
+    <!-- <h2 *ngIf="replicaList.length > 0">Total cost: </h2> -->
+    <h2 class="total-cost" *ngIf="replicaList.length > 0">TOTAL COST <span>{{ basketService.getBasket().getTotalCost() }} EU</span></h2>
     <div class="button-holder">
         <a routerLink="/replicas">GO BACK</a>
         <a routerLink="/order" class="btn small" *ngIf="replicaList.length > 0">ORDER</a>

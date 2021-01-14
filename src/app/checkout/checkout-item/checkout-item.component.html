@@ -1,0 +1,18 @@
+<article class="order-item">
+    <div class="replica-art-border">
+        <img src="{{ replicaItem.replica.imageUrl }}" class="replica-art" draggable="false"/>
+    </div>
+    <div class="order-info">
+        <h2>{{ replicaItem.replica.name }}</h2>
+        <p>{{ replicaItem.replica.artist }} - {{ replicaItem.replica.origin }}</p>
+        <div class="cost">
+            <button (click)="decreaseAmount()">
+                <img src="../../../assets/icons/minus.svg" />
+            </button>
+            <sub>Cost: {{ replicaItem.amount }} x {{ replicaItem.replica.cost }} = {{ replicaItem.replica.cost * replicaItem.amount }} EU</sub>
+            <button (click)="increaseAmount()">
+                <img src="../../../assets/icons/plus.svg" />
+            </button>
+        </div>
+    </div>
+</article>

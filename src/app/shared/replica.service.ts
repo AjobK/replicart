@@ -95,8 +95,4 @@ export class ReplicaService {
   getReplica(index: number) {
     return this.replicas[index];
   }
-
-  addReplicaToBasket(replica: Replica) {
-    // TODO: shopping basket
-  }
 }

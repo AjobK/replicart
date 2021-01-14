@@ -10,95 +10,23 @@ section {
     justify-content: center;
     align-items: center;
     padding: 2vw;
-    background-color: darken($background-color, 10%);
+    width: 100%;
 
     @media only screen and (min-width: $desktop-large) {
         padding: 30px;
     }
+}
 
-    > article.order-item {
-        box-sizing: border-box;
-        display: flex;
-        width: 100%;
-        max-width: $desktop-large;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-        box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        background-color: $background-color;
-        border-radius: 5px;
-
-        &:not(:last-child) {
-            margin-bottom: 10px;
-        }
-
-        .replica-art {
-            transition: 0.2s;
-            width: 100px;
-            height: 100px;
-            border-radius: 100%;
-            object-fit: cover;
-            background-color: $background-color;
-            padding: 3px;
-
-            &-border {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                transition: 0.2s;
-                border-radius: 100%;
-                min-width: 106px;
-                min-height: 106px;
-                max-width: 106px;
-                max-height: 106px;
-                background: linear-gradient(-90deg, rgba($primary-tone, 0.8) 0%, rgba($secondary-tone, 0.8) 100%);
-            }
-        }
-
-        .order-info {
-            margin-left: 20px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-            > h2 {
-                font-size: 14pt;
-                margin-bottom: 5px;
-                width: 100%;
-            }
-
-            > p {
-                flex-grow: 2;
-                font-size: 12pt;
-                color: rgba(0,0,0,0.65);
-                width: 100%;
-            }
-
-            > sub {
-                padding: 2px 8px;
-                border-radius: 100vh;
-                background-color: rgba($primary-color, 0.5);
-                color: $background-color;
-                align-self: flex-end;
-            }
-        }
-
-        @media only screen and (max-width: $mobile-large) {
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .replica-art-border {
-                margin-bottom: 20px;
-            }
-
-            .order-info {
-                > sub {
-                    margin-top: 20px;
-                    align-self: center;
-                }
-            }
-        }
-    }
+article.order-item {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    max-width: $desktop-large;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background-color: $background-color;
+    border-radius: 5px;
 }
 
 .no-items {
@@ -124,5 +52,23 @@ section {
 
     > a.btn {
         margin-left: 30px;
+    }
+}
+
+.total-cost {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    max-width: $desktop-large;
+    font-size: 14pt;
+    padding: 30px 0;
+    width: 100%;
+    text-align: right;
+
+    > span {
+        margin-left: 8px;
+        border-radius: 3px;
+        background-color: darken($secondary-tone, 25%);
+        padding: 5px 10px;
+        color: darken($secondary-tone, 50%);
+        letter-spacing: 0.5pt;
     }
 }
