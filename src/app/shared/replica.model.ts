@@ -5,7 +5,9 @@ export class Replica {
     public origin: string;
     public cost: number;
     public imageUrl: string;
-    public date: Date
+    public year: number
+    public width: number;
+    public height: number;
 
     constructor(
         id: number,
@@ -14,14 +16,23 @@ export class Replica {
         origin: string,
         cost: number,
         imageUrl: string,
-        date: Date
+        year: number,
     ) {
         this.id = id;
         this.artist = artist;
         this.name = name;
         this.origin = origin;
-        this.cost = cost;
+        this.cost = cost % ~~cost == 0 ? ~~cost : cost; // Removes zeros from rounded price
         this.imageUrl = imageUrl;
-        this.date = date;
+        this.year = year;
+
+        let img = new Image();
+
+        img.addEventListener('load', () => {
+            this.width = img.width;
+            this.height = img.height;
+        });
+
+        img.src = this.imageUrl;
     }
 }

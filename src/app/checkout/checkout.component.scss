@@ -68,7 +68,8 @@ article.order-item {
         border-radius: 3px;
         background-color: darken($secondary-tone, 25%);
         padding: 5px 10px;
-        color: darken($secondary-tone, 50%);
+        color: $background-color;
         letter-spacing: 0.5pt;
+        font-weight: normal;
     }
 }

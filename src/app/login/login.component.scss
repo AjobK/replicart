@@ -1,0 +1,72 @@
+@import '../variables';
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > form {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        max-width: $mobile-large;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        background-color: $background-color;
+        border-radius: 5px;
+        margin-top: 5vh;
+
+        div.logo {
+            transition: 0.2s;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            border-radius: 3px;
+            background-color: rgba($primary-color, 0.8);
+
+            > img {
+                width: 40%;
+                padding: 5px;
+                border-radius: 5px;
+            }
+
+            &:hover {
+                background-color: rgba($primary-color, 1);
+            }
+        }
+
+        > div {
+            margin-bottom: 30px;
+            width: 100%;
+
+            > label {
+                &::after {
+                    content: "\A";
+                    white-space: pre;
+                }
+            }
+
+            > input {
+                margin-top: 5px;
+                border-radius: 3px;
+                width: 100%;
+                padding: 10px;
+                background-color: rgba(0,0,0,0.08);
+                font-size: 12pt;
+                border: none;
+
+                &:focus + label {
+                    background-color: pink;
+                }
+            }
+        }
+
+        > button {
+            align-self: flex-end;
+        }
+    }
+}

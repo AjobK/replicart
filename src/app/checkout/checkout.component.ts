@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, Output } from '@angular/core';
-import { Basket } from '../shared/basket';
+import { Basket } from '../shared/basket.model';
 import { BasketService } from '../shared/basket.service';
 import { Replica } from '../shared/replica.model';
 

@@ -16,10 +16,7 @@ export class ReplicaBlockComponent implements OnInit {
         private basketService: BasketService
     ) { }
 
-    ngOnInit(): void {
-        // Temporary
-        // this.basketService.addReplica(this.replica)
-    }
+    ngOnInit(): void { }
 
     addToCart(): void {
         this.basketService.addReplica(this.replica);

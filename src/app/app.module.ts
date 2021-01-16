@@ -12,6 +12,9 @@ import { HamburgerComponent } from './shared/hamburger/hamburger.component';
 import { BasketService } from './shared/basket.service';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutItemComponent } from './checkout/checkout-item/checkout-item.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,11 +25,14 @@ import { CheckoutItemComponent } from './checkout/checkout-item/checkout-item.co
     NavigationComponent,
     HamburgerComponent,
     CheckoutComponent,
-    CheckoutItemComponent
+    CheckoutItemComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [ReplicaService, BasketService],
   bootstrap: [AppComponent]

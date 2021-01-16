@@ -1,5 +1,10 @@
 <app-navigation></app-navigation>
-<section *ngIf="columnSize == 4"> <!-- Visibility hidden on certain size -->
+<section class="col-1" *ngIf="!replicaListsLoaded">
+    <div>
+        Loading replicas...
+    </div>
+</section>
+<section *ngIf="columnSize == 4" class="col-4"> <!-- Visibility hidden on certain size -->
     <div
         *ngFor="let a of [0, 1, 2, 3];"
     >
@@ -9,7 +14,7 @@
         [index]="i"></app-replica-block>
     </div>
 </section>
-<section *ngIf="columnSize == 3"> <!--  Visibility hidden on certain size -->
+<section *ngIf="columnSize == 3" class="col-3"> <!--  Visibility hidden on certain size -->
     <div
         *ngFor="let a of [0, 1, 2];"
     >
@@ -19,7 +24,7 @@
         [index]="i"></app-replica-block>
     </div>
 </section>
-<section *ngIf="columnSize == 2">
+<section *ngIf="columnSize == 2" class="col-2">
     <div
         *ngFor="let a of [0, 1];"
     >
@@ -29,7 +34,7 @@
         [index]="i"></app-replica-block>
     </div>
 </section>
-<section *ngIf="columnSize == 1">
+<section *ngIf="columnSize == 1" class="col-1">
     <div
         *ngFor="let a of [0];"
     >

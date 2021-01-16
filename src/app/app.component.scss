@@ -21,6 +21,10 @@
     font-size: 18pt;
     cursor: pointer;
 
+    &:disabled {
+        background-color: rgba(0,0,0,0.35);
+    }
+
     &.small {
         padding: 8px 15px 8px 20px;
         font-size: 12pt;

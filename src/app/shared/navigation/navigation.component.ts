@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { Basket } from '../basket';
+import { Basket } from '../basket.model';
 import { BasketService } from '../basket.service';
 
 @Component({

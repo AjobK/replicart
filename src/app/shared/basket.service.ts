@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Basket } from './basket';
+import { Basket } from './basket.model';
 import { Replica } from './replica.model';
 
 @Injectable({

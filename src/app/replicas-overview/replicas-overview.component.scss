@@ -1,21 +1,31 @@
 @import '../variables';
 
 section {
-    padding: 0 2vw;
     width: 100%;
-    display: flex;
+    display: grid;
+    padding: 0 2vw;
+    grid-gap: 2vw;
 
-    > div {
-        &:not(:last-child) {
-            margin-right: 2vw;
+    &.col- {
+        &1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
 
-            @media only screen and (min-width: $desktop-large) {
-                margin-right: 30px;
-            }
+        &2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        &3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        &4 {
+            grid-template-columns: repeat(4, 1fr);
         }
     }
 
     @media only screen and (min-width: $desktop-large) {
+        grid-gap: 30px;
         padding: 0 30px;
     }
 }

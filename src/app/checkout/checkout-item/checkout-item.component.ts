@@ -12,9 +12,7 @@ export class CheckoutItemComponent implements OnInit {
 
   constructor(public basketService: BasketService) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   increaseAmount() {
     this.basketService.addReplica(this.replicaItem.replica)

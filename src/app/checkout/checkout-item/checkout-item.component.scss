@@ -21,21 +21,22 @@ article.order-item {
         transition: 0.2s;
         width: 100px;
         height: 100px;
-        border-radius: 100%;
         object-fit: cover;
         background-color: $background-color;
         padding: 3px;
+
+        @media only screen and (max-width: $mobile-large) {
+            width: auto;
+            height: 125px;
+        }
 
         &-border {
             display: flex;
             justify-content: center;
             align-items: center;
             transition: 0.2s;
-            border-radius: 100%;
-            min-width: 106px;
-            min-height: 106px;
-            max-width: 106px;
-            max-height: 106px;
+            border-radius: 5px;
+            padding: 3px;
             background: linear-gradient(-90deg, rgba($primary-tone, 0.8) 0%, rgba($secondary-tone, 0.8) 100%);
         }
     }
