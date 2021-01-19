@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { Basket } from '../basket.model';
-import { BasketService } from '../basket.service';
+import { AccountService } from '../services/account.service';
+import { Basket } from '../models/basket.model';
+import { BasketService } from '../services/basket.service';
 
 @Component({
   selector: 'app-navigation',
@@ -19,8 +20,17 @@ export class NavigationComponent implements OnInit {
   @Output() basketSize = 0;
 
   constructor(
-    private basketService: BasketService
-  ) { }
+    private basketService: BasketService,
+    public accountService: AccountService
+  ) {
+    this.accountService.accountChanged.subscribe(
+      (account) => {
+        this.setLinks(account);
+      }
+    )
+
+    this.setLinks(this.accountService.account);
+  }
 
   ngOnInit(): void {
     this.windowWidth = window.innerWidth;
@@ -31,6 +41,24 @@ export class NavigationComponent implements OnInit {
     )
 
     this.basketSize = this.basketService.getBasket().getReplicaCount();
+  }
+
+  setLinks(account): void {
+    let newLinks = [
+      ['HOME', '/'],
+      ['REPLICAS', '/replicas'],
+    ];
+
+    if (!account.loggedIn)
+      newLinks.push(['LOGIN', '/login'])
+
+    if (account.roleName == 'Administrator')
+      newLinks.push(['MANAGE', '/manage'])
+
+    if (account.roleName == 'Customer')
+      newLinks.push(['ORDERS', '/orders'])
+
+    this.links = newLinks;
   }
 
   toggleMenu(): void {

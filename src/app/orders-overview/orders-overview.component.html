@@ -1,0 +1,10 @@
+<app-navigation></app-navigation>
+<section>
+    <article *ngFor="let order of orders; let i = index;">
+        <h2>Order #{{ i+1 }}</h2>
+        <app-checkout-item [noButtons]="true" [customClasses]="'no-margin-bottom'" [replicaItem]="orderItem" *ngFor="let orderItem of order"></app-checkout-item>
+    </article>
+    <article *ngIf="orders.length <= 0" class="order-item no-items">
+        No items ordered yet...
+    </article>
+</section>

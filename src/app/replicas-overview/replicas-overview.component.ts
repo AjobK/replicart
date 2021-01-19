@@ -1,37 +1,40 @@
 import { Component, HostListener, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Replica } from '../shared/replica.model';
-import { ReplicaService } from '../shared/replica.service';
+import { AccountService } from '../shared/services/account.service';
+import { Replica } from '../shared/models/replica.model';
+import { ReplicaService } from '../shared/services/replica.service';
 
 @Component({
-  selector: 'app-replicas-overview',
-  templateUrl: './replicas-overview.component.html',
-  styleUrls: ['./replicas-overview.component.scss']
+    selector: 'app-replicas-overview',
+    templateUrl: './replicas-overview.component.html',
+    styleUrls: ['./replicas-overview.component.scss']
 })
 export class ReplicasOverviewComponent implements OnInit {
-  @Output() columnSize = 4;
-  @Output() replicaListsLoaded = false;
-  replicas: Replica[];
-  replicaLists = []
-  subscription: Subscription;
-  
-  constructor(private replicaService: ReplicaService) { }
+    @Output() columnSize = 4;
+    @Output() replicaListsLoaded = false;
+    replicas: Replica[];
+    replicaLists = []
+    subscription: Subscription;
 
-  ngOnInit(): void {
-    this.subscription = this.replicaService.replicasChanged
-    .subscribe(
-      (replicas: Replica[]) => {
-        this.replicas = replicas;
-        
+    constructor(private replicaService: ReplicaService, private accountService: AccountService) { }
+
+    ngOnInit(): void {
+        this.replicaService.fetchReplicas();
+
+        this.subscription = this.replicaService.replicasChanged
+        .subscribe(
+            (replicas: Replica[]) => {
+                this.replicas = replicas;
+
+                this.setColumnSizeAutomatically(window.innerWidth);
+                this.buildReplicaLists()
+            }
+        );
+
+        this.replicas = this.replicaService.getReplicas();
         this.setColumnSizeAutomatically(window.innerWidth);
         this.buildReplicaLists()
-      }
-    );
-
-    this.replicas = this.replicaService.getReplicas();
-    this.setColumnSizeAutomatically(window.innerWidth);
-    this.buildReplicaLists()
-  }
+    }
 
     buildReplicaLists(): void {
         this.replicaListsLoaded = false;
@@ -65,35 +68,35 @@ export class ReplicasOverviewComponent implements OnInit {
                 if (totalRatioStack < bestList[1]) bestList = [y, totalRatioStack];
             }
 
-            console.log(this.replicas[i].name + ' placed in list ' + bestList[0] + '/' + (this.columnSize-1))
+            // console.log(this.replicas[i].name + ' placed in list ' + bestList[0] + '/' + (this.columnSize-1))
             this.replicaLists[bestList[0]].push(this.replicas[i]);
         }
 
         this.replicaListsLoaded = true;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    const { innerWidth } = event.target;
-
-    this.setColumnSizeAutomatically(innerWidth);
-  }
-
-  setColumnSizeAutomatically(innerWidth) {
-    let newColumnSize = 0;
-
-    if (innerWidth < 640)
-      newColumnSize = 1;
-    else if (innerWidth < 960)
-      newColumnSize = 2;
-    else if (innerWidth < 1200)
-      newColumnSize = 3;
-    else
-      newColumnSize = 4;
-
-    if (newColumnSize != 0 && newColumnSize != this.columnSize) {
-      this.columnSize = newColumnSize;
-      this.buildReplicaLists();
     }
-  }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        const { innerWidth } = event.target;
+
+        this.setColumnSizeAutomatically(innerWidth);
+    }
+
+    setColumnSizeAutomatically(innerWidth) {
+        let newColumnSize = 0;
+
+        if (innerWidth < 640)
+            newColumnSize = 1;
+        else if (innerWidth < 960)
+            newColumnSize = 2;
+        else if (innerWidth < 1200)
+            newColumnSize = 3;
+        else
+            newColumnSize = 4;
+
+        if (newColumnSize != 0 && newColumnSize != this.columnSize) {
+            this.columnSize = newColumnSize;
+            this.buildReplicaLists();
+        }
+    }
 }

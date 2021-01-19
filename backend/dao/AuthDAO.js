@@ -7,7 +7,11 @@ module.exports = class AuthDao {
     }
 
     static getAccountByUsername(username){
-        return db.query(`SELECT * FROM account WHERE username=$1`, [username]);
+        return db.query(`SELECT username, role.name AS role_name FROM account LEFT JOIN role ON role_id = role.id WHERE username=$1`, [username]);
+    }
+
+    static getFullAccountByUsername(username){
+        return db.query(`SELECT account.id, username, role.name AS role_name, password FROM account LEFT JOIN role ON role_id = role.id WHERE username=$1`, [username]);
     }
 
     static updateAccountLastLogin(body){

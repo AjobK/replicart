@@ -1,17 +1,23 @@
-<article class="order-item">
+<article class="order-item {{ customClasses }}">
     <div class="replica-art-border">
         <img src="{{ replicaItem.replica.imageUrl }}" class="replica-art" draggable="false"/>
     </div>
     <div class="order-info">
         <h2>{{ replicaItem.replica.name }}</h2>
         <p>{{ replicaItem.replica.artist }} - {{ replicaItem.replica.origin }} ({{ replicaItem.replica.year }})</p>
-        <div class="cost">
-            <button (click)="decreaseAmount()">
+        <div class="cost" [ngClass]="{ admin: adminView }">
+            <button (click)="decreaseAmount()" *ngIf="!noButtons && !adminView">
                 <img src="../../../assets/icons/minus.svg" />
             </button>
-            <sub>Cost: {{ replicaItem.amount }} x {{ replicaItem.replica.cost }} = {{ replicaItem.replica.cost * replicaItem.amount }} EU</sub>
-            <button (click)="increaseAmount()">
+            <sub *ngIf="!adminView">Cost: {{ replicaItem.amount }} x {{ replicaItem.replica.cost }} = {{ replicaItem.replica.cost * replicaItem.amount }} EU</sub>
+            <button (click)="increaseAmount()" *ngIf="!noButtons && !adminView">
                 <img src="../../../assets/icons/plus.svg" />
+            </button>
+            <button (click)="replicaService.removeReplica(replicaItem.replica)" *ngIf="adminView">
+                <img src="../../../assets/icons/minus.svg" />
+            </button>
+            <button (click)="increaseAmount()" *ngIf="adminView">
+                <img src="../../../assets/icons/dots.svg" />
             </button>
         </div>
     </div>

@@ -9,7 +9,11 @@
                 (click)="toggleMenu()"
             ></app-hamburger>
         </div>
-        <div [ngClass]="{ open: menuOpen }">
+        <div [ngClass]="{ open: menuOpen }" [ngStyle]="
+            { height: menuOpen ? ('calc((16pt + 32pt) * ' + (links.length + (
+                accountService.account.loggedIn ? (accountService.account.roleName == 'Customer' ? 2 : 1) : 0)
+            ) + ' - 3px)') : '0px' }
+        ">
             <nav>
                 <a
                     *ngFor="let link of links;"
@@ -24,12 +28,16 @@
                     routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}"
                     class="basket"
+                    *ngIf="accountService.account.loggedIn && accountService.account.roleName != 'Administrator'"
                 >
                     <div>
                         <span>Checkout</span>
                         <img src="../../../assets/icons/basket-white.svg" />
                     </div>
                     <span *ngIf="basketSize > 0">{{ basketSize > 9 ? '9+' : basketSize }}</span>
+                </a>
+                <a *ngIf="accountService.account.loggedIn" (click)="accountService.logout()">
+                    Logout
                 </a>
             </nav>
         </div>
@@ -40,7 +48,7 @@
         <a [routerLink]="['/']">
             <img class="logo" src="../../../assets/icons/logo-black.svg" />
         </a>
-        <a [routerLink]="['/checkout']" class="basket">
+        <a [routerLink]="['/checkout']" class="basket" *ngIf="accountService.account.loggedIn && accountService.account.roleName != 'Administrator'">
             <img src="../../../assets/icons/basket.svg" />
             <span *ngIf="basketSize > 0">{{ basketSize > 9 ? '9+' : basketSize }}</span>
         </a>
@@ -53,6 +61,10 @@
             [routerLinkActiveOptions]="{exact: true}"
         >
             {{ link[0] }}
+            <span class="underline"></span>
+        </a>
+        <a *ngIf="accountService.account.loggedIn" (click)="accountService.logout()">
+            Logout
             <span class="underline"></span>
         </a>
     </nav>

@@ -1,0 +1,52 @@
+@import '../variables';
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2vw;
+    width: 100%;
+
+    @media only screen and (min-width: $desktop-large) {
+        padding: 30px;
+    }
+}
+
+article, .no-items {
+    margin-top: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: $desktop-large;
+    background-color: $background-color;
+    border-radius: 5px;
+
+    > h2 {
+        font-size: 14pt;
+        line-height: 14pt;
+        width: 100%;
+        border-radius: 5px 5px 0 0;
+        padding: 22px 20px 20px 20px;
+        background-color: darken($background-color, 2%);
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+}
+
+.no-items {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background-color: $background-color;
+    border-radius: 5px;
+    flex: 1;
+    margin-bottom: 10px;
+    margin-top: 5vh;
+    color: rgba(0,0,0,0.5);
+}

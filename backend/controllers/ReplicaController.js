@@ -1,4 +1,11 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const AuthDao = require('../dao/AuthDAO');
 const ReplicaDAO = require('../dao/ReplicaDAO');
+
+require('dotenv').config()
+
+const { JWT_SECRET } = process.env;
 
 exports.getReplicas = (req, res, next) =>  {
     ReplicaDAO.getReplicas()
@@ -17,29 +24,12 @@ exports.getReplicas = (req, res, next) =>  {
     })
 }
 
-exports.getTrees = (req, res, next) => {
-    Tree.getTrees(req.get('userID'))
-    .then(trees => {
-        res.status(200).json({
-            message: 'Fetched trees successfully.',
-            trees: trees.rows
-        })
-    })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    });
-};
-
-exports.getTreeById = (req, res, next) => {
+exports.getReplicaById = (req, res, next) => {
     let user_id;
     let userID = req.get('userid');
 
-    Tree.getTreeById(req.params.id)
+    Replica.getReplicaById(req.params.id)
     .then(trees => {
-        console.log(req)
         user_id = trees.rows[0].user_id;
         if(userID != user_id){
             const error = new Error('Not authorized');
@@ -62,8 +52,8 @@ exports.getTreeById = (req, res, next) => {
     });
 };
 
-exports.createTree = (req, res, next) => {
-    Tree.createTree(req.body)
+exports.createReplica = (req, res, next) => {
+    Replica.createReplica(req.body)
     .then(tree => {
         res.status(200).json({
             message: 'Created tree successfully.',
@@ -78,8 +68,8 @@ exports.createTree = (req, res, next) => {
     });
 };
 
-exports.updateTree = (req, res, next) => {
-    Tree.updateTree(req.body)
+exports.updateReplica = (req, res, next) => {
+    Replica.updateReplica(req.body)
     .then(tree => {
         res.status(200).json({
             message: 'Updated tree successfully.',
@@ -94,17 +84,17 @@ exports.updateTree = (req, res, next) => {
     });
 };
 
-exports.deleteTreeById = (req, res, next) => {
-    Tree.deleteTreeById(req.params.id)
-        .then(() => {
-            res.status(200).json({
-                message: 'Deleted tree successfully.'
-            })
+exports.deleteReplicaById = (req, res, next) => {
+    ReplicaDAO.deleteReplicaById(req.params.id)
+    .then(() => {
+        res.status(200).json({
+            message: 'Deleted replica successfully.'
         })
-        .catch(err => {
-            if (!err.statusCode) {
-                err.statusCode = 500;
-            }
-            next(err);
-        });
+    })
+    .catch(err => {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    });
 };

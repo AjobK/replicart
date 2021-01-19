@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, Output } from '@angular/core';
-import { Basket } from '../shared/basket.model';
-import { BasketService } from '../shared/basket.service';
-import { Replica } from '../shared/replica.model';
+import { Basket } from '../shared/models/basket.model';
+import { BasketService } from '../shared/services/basket.service';
+import { Replica } from '../shared/models/replica.model';
 
 @Component({
   selector: 'app-checkout',
@@ -21,8 +21,6 @@ export class CheckoutComponent implements OnInit {
     )
 
     this.replicaList = this.basketService.getBasket().getReplicas();
-
-    console.log(this.replicaList)
 
     this.elementRef.nativeElement.ownerDocument.body.classList.add('grey-body');
   }

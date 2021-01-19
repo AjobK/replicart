@@ -35,9 +35,9 @@ module.exports = class ReplicaDAO {
             );
     }
 
-    static deleteTreeById(id) {
-        if (!id) throw new InvalidIDError('No tree ID passed');
+    static deleteReplicaById(id) {
+        if (!id) throw new InvalidIDError('No replica ID passed');
 
-        return db.query('DELETE FROM tree WHERE id=$1;', [id]);
+        return db.query('DELETE FROM replica WHERE id=$1;', [id]);
     }
 }

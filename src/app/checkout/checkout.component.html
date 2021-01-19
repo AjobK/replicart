@@ -8,6 +8,6 @@
     <h2 class="total-cost" *ngIf="replicaList.length > 0">TOTAL COST <span>{{ basketService.getBasket().getTotalCost() }} EU</span></h2>
     <div class="button-holder">
         <a routerLink="/replicas">GO BACK</a>
-        <a routerLink="/order" class="btn small" *ngIf="replicaList.length > 0">ORDER</a>
+        <button class="btn small" *ngIf="replicaList.length > 0" (click)="basketService.sendOrder()">ORDER</button>
     </div>
 </section>

@@ -4,21 +4,29 @@ const bodyParser = require('body-parser');
 // Routes utilizing resource files
 const replicaRoutes = require('./resources/ReplicaResource');
 const authRoutes = require('./resources/AuthResource');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cookieParser())
+app.use(cors({
+    origin: 'http://localhost:4200',
+    credentials: true
+}))
 
 // External access (CORS)
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');                              // Allow client to send requests from given origin, * serving as a wildcard
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE'); // Allow client to use given request methods
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, userID');   // Allow client to send request headers
-    next();
-});
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*');                              // Allow client to send requests from given origin, * serving as a wildcard
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE'); // Allow client to use given request methods
+//     res.setHeader('Access-Control-Allow-Headers', '*');   // Allow client to send request headers
+//     res.setHeader('Access-Control-Allow-Credentials', true);   // Allow client to send request headers
+//     next();
+// });
 
 // Utilize routes
-app.use('/api/replica', replicaRoutes);
-app.use('/api/auth', authRoutes);
+
+app.use('/api', require('./generalRouter'));
 
 app.listen(8080);

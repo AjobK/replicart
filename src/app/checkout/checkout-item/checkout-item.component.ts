@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BasketService } from 'src/app/shared/basket.service';
-import { Replica } from 'src/app/shared/replica.model';
+import { BasketService } from 'src/app/shared/services/basket.service';
+import { Replica } from 'src/app/shared/models/replica.model';
+import { ReplicaService } from 'src/app/shared/services/replica.service';
 
 @Component({
   selector: 'app-checkout-item',
@@ -9,8 +10,11 @@ import { Replica } from 'src/app/shared/replica.model';
 })
 export class CheckoutItemComponent implements OnInit {
   @Input() replicaItem: { replica: Replica, amount: number };
+  @Input() noButtons: boolean = false;
+  @Input() adminView: boolean = false;
+  @Input() customClasses: string;
 
-  constructor(public basketService: BasketService) { }
+  constructor(public basketService: BasketService, public replicaService: ReplicaService) { }
 
   ngOnInit(): void { }
 

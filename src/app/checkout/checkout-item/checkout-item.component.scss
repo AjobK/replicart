@@ -17,6 +17,10 @@ article.order-item {
     flex: 1;
     margin-bottom: 10px;
 
+    &.no-margin-bottom {
+        margin-bottom: 0;
+    }
+
     .replica-art {
         transition: 0.2s;
         width: 100px;
@@ -70,6 +74,26 @@ article.order-item {
                 background-color: rgba($primary-color, 0.075);
                 color: $primary-color;
                 margin-left: 5px;
+            }
+
+            &.admin {
+                > button {
+                    padding: 15px;
+                    
+                    > img {
+                        display: block;
+                        width: 15px;
+                        height: 15px;
+                    }
+
+                    &:first-child {
+                        background-color: darken(adjust-hue($color: $secondary-tone, $degrees: 170), 20%);
+                    }
+
+                    &:last-child {
+                        background-color: darken($background-color, 75%);
+                    }
+                }
             }
 
             > button {

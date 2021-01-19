@@ -1,0 +1,7 @@
+<app-navigation></app-navigation>
+<section>
+    <article *ngIf="replicaList.length <= 0" class="order-item no-items">
+        No items added to shopping basket...
+    </article>
+    <app-checkout-item *ngFor="let replicaItem of replicaList" [replicaItem]="{ replica: replicaItem, amount: -1 }" [adminView]="true"></app-checkout-item>
+</section>

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BasketService } from 'src/app/shared/basket.service';
-import { Replica } from 'src/app/shared/replica.model';
-import { ReplicaService } from 'src/app/shared/replica.service';
+import { Router } from '@angular/router';
+import { AccountService } from 'src/app/shared/services/account.service';
+import { BasketService } from 'src/app/shared/services/basket.service';
+import { Replica } from 'src/app/shared/models/replica.model';
+import { ReplicaService } from 'src/app/shared/services/replica.service';
 
 @Component({
   selector: 'app-replica-block',
@@ -13,12 +15,17 @@ export class ReplicaBlockComponent implements OnInit {
     @Input() index: number;
 
     constructor(
-        private basketService: BasketService
+        private basketService: BasketService,
+        private accountService: AccountService,
+        private router: Router
     ) { }
 
     ngOnInit(): void { }
 
     addToCart(): void {
-        this.basketService.addReplica(this.replica);
+        if (!this.accountService.account.loggedIn)
+            this.router.navigate(['login'])
+        else
+            this.basketService.addReplica(this.replica);
     }
 }

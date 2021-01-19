@@ -193,11 +193,6 @@ header {
                         }
                     }
                 }
-
-                &.open {
-                    transition: 0.2s;
-                    height: calc((16pt + 32pt) * 4 - 3px);
-                }
             }
         }
 
@@ -219,6 +214,7 @@ nav {
     display: flex;
     
     > a {
+        cursor: pointer;
         position: relative;
         text-decoration: none;
         text-transform: uppercase;

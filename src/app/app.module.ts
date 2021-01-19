@@ -6,15 +6,19 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ReplicasOverviewComponent } from './replicas-overview/replicas-overview.component';
 import { ReplicaBlockComponent } from './replicas-overview/replica-block/replica-block.component';
-import { ReplicaService } from './shared/replica.service';
+import { ReplicaService } from './shared/services/replica.service';
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import { HamburgerComponent } from './shared/hamburger/hamburger.component';
-import { BasketService } from './shared/basket.service';
+import { BasketService } from './shared/services/basket.service';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutItemComponent } from './checkout/checkout-item/checkout-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { AuthGuardService } from './shared/guards/auth-guard.service';
+import { OrdersOverviewComponent } from './orders-overview/orders-overview.component';
+import { ManageComponent } from './manage/manage.component';
+import { AdminGuardService } from './shared/guards/admin-guard.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,9 @@ import { FormsModule } from '@angular/forms';
     HamburgerComponent,
     CheckoutComponent,
     CheckoutItemComponent,
-    LoginComponent
+    LoginComponent,
+    OrdersOverviewComponent,
+    ManageComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  providers: [ReplicaService, BasketService],
+  providers: [ReplicaService, BasketService, AuthGuardService, AdminGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
