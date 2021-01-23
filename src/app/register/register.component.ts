@@ -23,6 +23,9 @@ export class RegisterComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.accountService.accountChanged.subscribe((account) => {
+            if (account.loggedIn) this.router.navigate(['replicas']);
+        })
         this.elementRef.nativeElement.ownerDocument.body.classList.add('grey-body');
     }
 

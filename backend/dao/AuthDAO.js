@@ -1,10 +1,6 @@
 const db = require('../database/db');
 
 module.exports = class AuthDAO {
-    static getUsers(){
-        return db.query(`SELECT username FROM account;`)
-    }
-
     static getAccountByUsername(username){
         return db.query(`SELECT username, role.name AS role_name FROM account LEFT JOIN role ON role_id = role.id WHERE username=$1`, [username]);
     }
