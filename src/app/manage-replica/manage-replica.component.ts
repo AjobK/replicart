@@ -20,7 +20,6 @@ export class ManageReplicaComponent implements OnInit {
 
     constructor(
         private elementRef: ElementRef,
-        // private accountService: AccountService,
         private replicaService: ReplicaService,
         private router: Router,
         private route: ActivatedRoute,
@@ -72,7 +71,7 @@ export class ManageReplicaComponent implements OnInit {
                 origin: this.form.control.get('origin').value,
                 year: this.form.control.get('year').value,
                 cost: this.form.control.get('cost').value,
-                image_url: this.form.control.get('image_url').value 
+                imageUrl: this.form.control.get('image_url').value 
             })
             .pipe(first())
             .subscribe(
@@ -95,7 +94,7 @@ export class ManageReplicaComponent implements OnInit {
                     origin: this.form.control.get('origin').value,
                     year: this.form.control.get('year').value,
                     cost: this.form.control.get('cost').value,
-                    image_url: this.form.control.get('image_url').value 
+                    imageUrl: this.form.control.get('image_url').value 
                 }, params.id)
                 .pipe(first())
                 .subscribe(

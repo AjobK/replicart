@@ -55,11 +55,12 @@ export class AccountService {
     logout() {
         this.http
         .get<any>(
-            'http://localhost:8080/api/auth/logout'
+            'http://localhost:8080/api/auth/logout',
+            environment.DEFAULT_HTTP_OPTIONS
         ).subscribe(() => {
             this.account = new Account('', '', false);
             this.accountChanged.next(this.account);
-            this.router.navigate(['/login']);
+            this.router.navigate(['login']);
         })
     }
 

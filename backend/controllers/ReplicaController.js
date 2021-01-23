@@ -52,10 +52,9 @@ exports.createReplica = (req, res, next) => {
 
 exports.updateReplicaById = (req, res, next) => {
     ReplicaDAO.updateReplicaById(req.body, req.params.id)
-    .then(tree => {
+    .then(() => {
         res.status(200).json({
             message: 'Updated replica successfully.',
-            trees: tree.rows[0]
         })
     })
     .catch(err => {

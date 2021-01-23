@@ -64,6 +64,10 @@ article {
         > button {
             margin-bottom: 15px;
 
+            &.hidden {
+                visibility: hidden;
+            }
+
             @media only screen and (max-width: $desktop-large) {
                 margin-bottom: 5px;
             }

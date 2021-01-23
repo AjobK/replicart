@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { decode } = require('punycode');
 const AuthDAO = require('../dao/AuthDAO');
 
 require('dotenv').config()
@@ -104,9 +105,9 @@ exports.login = (req, res, next) => {
 }
 
 exports.logout = (req, res, next) => {
-    res.setHeader('Set-Cookie', `token=deleted; path=/`);
+    res.setHeader('Set-Cookie', `token=deleted; HttpOnly; expires=${Date.now()}; path=/`);
     res.status(200);
-    res.json({message: 'Logged out succesfully'});
+    res.send();
 }
 
 exports.register = async (req, res, next) => {
@@ -126,7 +127,10 @@ exports.register = async (req, res, next) => {
         // Setting path to '/' so HTTP Cookie is retrievable across website
         res.setHeader('Set-Cookie', `token=${token}; HttpOnly; expires=${+new Date(new Date().getTime()+86409000).toUTCString()}; path=/`);
         res.status(200).json({
-            message: 'Created user successfully.'
+            message: 'Created user successfully.',
+            loggedIn: true,
+            username: body.username,
+            roleName: 'Customer'
         })
     })
     .catch(err => {

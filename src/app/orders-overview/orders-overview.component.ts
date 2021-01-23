@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AccountService } from '../shared/services/account.service';
 
 @Component({
@@ -8,11 +9,12 @@ import { AccountService } from '../shared/services/account.service';
 })
 export class OrdersOverviewComponent implements OnInit {
     orders: any = [];
+    accountChangedSubscription: Subscription;
 
-  constructor(public accountService: AccountService, private elementRef: ElementRef) { }
+    constructor(public accountService: AccountService, private elementRef: ElementRef) { }
 
     ngOnInit(): void {
-        this.accountService.accountChanged.subscribe((account) => {
+        this.accountChangedSubscription = this.accountService.accountChanged.subscribe((account) => {
             this.orders = account.orders;
         })
         this.accountService.fetchOrders();
@@ -21,5 +23,6 @@ export class OrdersOverviewComponent implements OnInit {
 
     ngOnDestroy(): void {
         this.elementRef.nativeElement.ownerDocument.body.classList.remove('grey-body');
+        this.accountChangedSubscription.unsubscribe();
     }
 }

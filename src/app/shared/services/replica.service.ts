@@ -28,6 +28,8 @@ export class ReplicaService {
         .subscribe(
             (res: HttpResponse<any>) => {
                 this.replicas = [];
+                console.log('Replicas: ')
+                console.log(res.body.replicas)
                 res.body.replicas.map((replica) => {
                     this.replicas.push(new Replica(
                         replica.id,
@@ -35,7 +37,7 @@ export class ReplicaService {
                         replica.name,
                         replica.origin,
                         replica.cost,
-                        replica.image_url,
+                        replica.image_url || 'https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d',
                         replica.year
                     ))
                 })
@@ -68,7 +70,7 @@ export class ReplicaService {
         origin: string,
         cost: number,
         year: number,
-        image_url: string
+        imageUrl: string
     }, id: number) {
 
         return this.http
@@ -81,7 +83,7 @@ export class ReplicaService {
         origin: string,
         cost: number,
         year: number,
-        image_url: string
+        imageUrl: string
     }) {
         return this.http
         .post<any>(`http://localhost:8080/api/replica`, replicaData, environment.DEFAULT_HTTP_OPTIONS)

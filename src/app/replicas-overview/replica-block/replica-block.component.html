@@ -6,6 +6,6 @@
             <h3> {{ replica.cost }} EU </h3>
             <h4> {{ replica.name }} </h4>
         </div>
-        <button class="btn small alt-hover" (click)="addToCart()">ADD TO CART</button>
+        <button class="btn small alt-hover" (click)="addToCart()" [ngClass]="{ hidden: accountService.account.roleName != 'Customer' }">ADD TO CART</button>
     </div>
 </article>

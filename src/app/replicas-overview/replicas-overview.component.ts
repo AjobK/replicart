@@ -14,12 +14,12 @@ export class ReplicasOverviewComponent implements OnInit {
     @Output() replicaListsLoaded = false;
     replicas: Replica[];
     replicaLists = []
-    subscription: Subscription;
+    replicasChangedSubscription: Subscription;
 
-    constructor(private replicaService: ReplicaService, private accountService: AccountService) { }
+    constructor(private replicaService: ReplicaService) { }
 
     ngOnInit(): void {
-        this.subscription = this.replicaService.replicasChanged
+        this.replicasChangedSubscription = this.replicaService.replicasChanged
         .subscribe(
             (replicas: Replica[]) => {
                 this.replicas = replicas;
@@ -95,5 +95,9 @@ export class ReplicasOverviewComponent implements OnInit {
             this.columnSize = newColumnSize;
             this.buildReplicaLists();
         }
+    }
+
+    ngOnDestroy(): void {
+        this.replicasChangedSubscription.unsubscribe();
     }
 }

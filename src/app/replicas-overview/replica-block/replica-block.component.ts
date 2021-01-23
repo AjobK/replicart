@@ -16,8 +16,8 @@ export class ReplicaBlockComponent implements OnInit {
 
     constructor(
         private basketService: BasketService,
-        private accountService: AccountService,
-        private router: Router
+        private router: Router,
+        public accountService: AccountService
     ) { }
 
     ngOnInit(): void { }

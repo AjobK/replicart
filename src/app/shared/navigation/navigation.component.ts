@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { Basket } from '../models/basket.model';
 import { BasketService } from '../services/basket.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -17,9 +18,11 @@ export class NavigationComponent implements OnInit {
     ];
     @Output() menuOpen = false;
     @Output() basketSize = 0;
+    accountChangedSubscription: Subscription;
+    basketChangedSubscription: Subscription;
 
     constructor(private basketService: BasketService, public accountService: AccountService) {
-        this.accountService.accountChanged.subscribe(
+        this.accountChangedSubscription = this.accountService.accountChanged.subscribe(
             (account) => {
                 this.setLinks(account);
             }
@@ -30,7 +33,7 @@ export class NavigationComponent implements OnInit {
 
     ngOnInit(): void {
         this.windowWidth = window.innerWidth;
-        this.basketService.basketChanged.subscribe(
+        this.basketChangedSubscription = this.basketService.basketChanged.subscribe(
             (basket: Basket) => {
                 this.basketSize = basket.getReplicaCount();
             }
@@ -54,9 +57,9 @@ export class NavigationComponent implements OnInit {
         if (account.roleName == 'Customer')
             newLinks.push(['ORDERS', '/orders'])
 
-        console.log('LINKS: ')
-        console.log(account);
-        console.log(newLinks);
+        console.log('LINKS:')
+        console.log(account)
+        console.log(newLinks)
 
         this.links = newLinks;
     }
@@ -64,5 +67,10 @@ export class NavigationComponent implements OnInit {
     toggleMenu(): void {
         this.windowWidth = window.innerWidth;
         this.menuOpen = !this.menuOpen 
+    }
+
+    ngOnDestroy(): void {
+        this.accountChangedSubscription.unsubscribe();
+        this.basketChangedSubscription.unsubscribe();
     }
 }

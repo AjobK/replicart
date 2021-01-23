@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Account } from '../shared/models/account.model';
 import { AccountService } from '../shared/services/account.service';
@@ -15,6 +16,7 @@ export class RegisterComponent implements OnInit {
     @ViewChild('authForm') form: NgForm;
     @Output() hasErrors: boolean = false
     isLoading = false;
+    accountChangedSubscription: Subscription;
 
     constructor(
         private elementRef: ElementRef,
@@ -23,7 +25,7 @@ export class RegisterComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.accountService.accountChanged.subscribe((account) => {
+        this.accountChangedSubscription = this.accountService.accountChanged.subscribe((account) => {
             if (account.loggedIn) this.router.navigate(['replicas']);
         })
         this.elementRef.nativeElement.ownerDocument.body.classList.add('grey-body');
@@ -37,11 +39,12 @@ export class RegisterComponent implements OnInit {
             return;
         }
         this.accountService.register(form.value.username, form.value.password)
+        .pipe(first())
         .subscribe(
             (res: HttpResponse<any>) => {
-                const { username, roleName } = res.body;
+                const { username, roleName, loggedIn } = res.body;
                 
-                this.accountService.account = new Account(username || '', roleName || '', true);
+                this.accountService.account = new Account(username || '', roleName || '', loggedIn || false);
                 this.accountService.accountChanged.next(this.accountService.account);
 
                 this.router.navigate(['replicas']);
@@ -57,5 +60,6 @@ export class RegisterComponent implements OnInit {
 
     ngOnDestroy(): void {
         this.elementRef.nativeElement.ownerDocument.body.classList.remove('grey-body');
+        this.accountChangedSubscription.unsubscribe();
     }
 }

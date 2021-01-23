@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, Output } from '@angular/core';
-import { Basket } from '../shared/models/basket.model';
+import { Subscription } from 'rxjs';
 import { Replica } from '../shared/models/replica.model';
 import { BasketService } from '../shared/services/basket.service';
 import { ReplicaService } from '../shared/services/replica.service';
@@ -11,6 +11,7 @@ import { ReplicaService } from '../shared/services/replica.service';
 })
 export class ManageComponent implements OnInit {
   @Output() replicaList: Replica[] = [];
+  replicasChangedSubscription: Subscription;
 
   constructor(
     public basketService: BasketService,
@@ -22,12 +23,13 @@ export class ManageComponent implements OnInit {
     this.replicaService.fetchReplicas();
     this.replicaList = this.replicaService.getReplicas();
 
-    this.replicaService.replicasChanged.subscribe(res => this.replicaList = this.replicaService.getReplicas())
+    this.replicasChangedSubscription = this.replicaService.replicasChanged.subscribe(() => this.replicaList = this.replicaService.getReplicas())
 
     this.elementRef.nativeElement.ownerDocument.body.classList.add('grey-body');
   }
 
   ngOnDestroy(): void {
     this.elementRef.nativeElement.ownerDocument.body.classList.remove('grey-body');
+    this.replicasChangedSubscription.unsubscribe();
   }
 }

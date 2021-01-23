@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, Output } from '@angular/core';
 import { Basket } from '../shared/models/basket.model';
 import { BasketService } from '../shared/services/basket.service';
 import { Replica } from '../shared/models/replica.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -10,11 +11,12 @@ import { Replica } from '../shared/models/replica.model';
 })
 export class CheckoutComponent implements OnInit {
   @Output() replicaList: Array<{replica: Replica, amount: number}> = [];
+  basketChangedSubscription: Subscription;
 
   constructor(public basketService: BasketService, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
-    this.basketService.basketChanged.subscribe(
+    this.basketChangedSubscription = this.basketService.basketChanged.subscribe(
       (basket: Basket) => {
           this.replicaList = basket.getReplicas();
       }
@@ -27,5 +29,6 @@ export class CheckoutComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.elementRef.nativeElement.ownerDocument.body.classList.remove('grey-body');
+    this.basketChangedSubscription.unsubscribe();
   }
 }

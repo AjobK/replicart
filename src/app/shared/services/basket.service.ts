@@ -139,7 +139,7 @@ export class BasketService {
             (res: HttpResponse<any>) => {
                 this.clearBasketItems();
                 this.basketChanged.next(this.basket);
-                this.router.navigate(['/orders']);
+                this.router.navigate(['orders']);
             }
         )
     }

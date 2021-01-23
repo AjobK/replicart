@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Account } from '../shared/models/account.model';
 import { AccountService } from '../shared/services/account.service';
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
     @ViewChild('authForm') form: NgForm;
     @Output() hasErrors: boolean = false
     isLoading = false;
+    accountChangedSubscription: Subscription;
 
     constructor(
         private elementRef: ElementRef,
@@ -24,7 +26,7 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.accountService.accountChanged.subscribe((account) => {
+        this.accountChangedSubscription = this.accountService.accountChanged.subscribe((account) => {
             if (account.loggedIn) this.router.navigate(['replicas']);
         })
         this.elementRef.nativeElement.ownerDocument.body.classList.add('grey-body');
@@ -52,5 +54,6 @@ export class LoginComponent implements OnInit {
 
     ngOnDestroy(): void {
         this.elementRef.nativeElement.ownerDocument.body.classList.remove('grey-body');
+        this.accountChangedSubscription.unsubscribe();
     }
 }
