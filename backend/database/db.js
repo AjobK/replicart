@@ -1,7 +1,6 @@
 /**
  * File for setting up connection with database
  * @author Ajob Kustra
- * @author Kaz Schraven
  */
 
 // .ENV configured into process.env
