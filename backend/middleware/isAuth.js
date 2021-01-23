@@ -6,21 +6,17 @@ const { JWT_SECRET } = process.env;
 module.exports = (req, res, next) => {
     const { token } = req.cookies
 
-    if (!token) {
-        const error = new Error('Not authorized');
-        error.statusCode = 401;
-        throw error;
-    }
+    if (!token) return res.status(401).send('Not authorized');
+
+    let decodedToken = '';
 
     try{
         decodedToken = jwt.verify(token, JWT_SECRET);
-    } catch (error){
-        error.statusCode = 500;
-        throw error;
+    } catch (error) {
+        return res.status(422).send('Token invalid');
     }
 
     req.decoded = decodedToken;
 
-    // console.log('Passed isAuth')
     next();
 };

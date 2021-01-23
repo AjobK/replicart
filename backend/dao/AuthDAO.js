@@ -1,7 +1,7 @@
 const db = require('../database/db');
 const { InvalidIDError } = require('../errors');
 
-module.exports = class AuthDao {
+module.exports = class AuthDAO {
     static getUsers(){
         return db.query(`SELECT username FROM account;`)
     }
@@ -25,8 +25,16 @@ module.exports = class AuthDao {
 
         return db.query(
             'INSERT INTO account (username, password, role_id) ' +
-            'VALUES ($1, $2, $3);',
+            'VALUES ($1, $2, $3) RETURNING id;',
             [username, password, 1]
         );
+    }
+
+    static async isRole(roleName, accountId) {
+        let isAdmin = await db.query(
+            'SELECT role.name FROM account LEFT JOIN role ON role.id = account.role_id WHERE account.id=$1;', [accountId]
+        )
+
+        return isAdmin.rows[0].name === roleName
     }
 }

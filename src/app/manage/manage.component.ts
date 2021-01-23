@@ -19,6 +19,7 @@ export class ManageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.replicaService.fetchReplicas();
     this.replicaList = this.replicaService.getReplicas();
 
     this.replicaService.replicasChanged.subscribe(res => this.replicaList = this.replicaService.getReplicas())

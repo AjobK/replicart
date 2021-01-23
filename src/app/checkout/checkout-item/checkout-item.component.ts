@@ -19,10 +19,13 @@ export class CheckoutItemComponent implements OnInit {
   ngOnInit(): void { }
 
   increaseAmount() {
-    this.basketService.addReplica(this.replicaItem.replica)
+    // this.basketService.addReplica(this.replicaItem.replica)
+    this.replicaItem.amount++;
+    this.basketService.updateBasketItem(this.replicaItem);
   }
-
+  
   decreaseAmount() {
-    this.basketService.removeReplica(this.replicaItem.replica);
+    this.replicaItem.amount--;
+    this.basketService.updateBasketItem(this.replicaItem);
   }
 }

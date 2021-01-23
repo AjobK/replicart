@@ -15,7 +15,7 @@ export class AccountService {
     account: Account = new Account('', '', false);
     accountChanged: Subject<Account> = new Subject<Account>();
 
-    constructor(private http: HttpClient, private router: Router, private basketService: BasketService) {
+    constructor(private http: HttpClient, private router: Router) {
         const httpOptions = {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
             
@@ -29,6 +29,8 @@ export class AccountService {
             httpOptions
         ).subscribe((res: HttpResponse<any>) => {
             const { loggedIn, username, roleName } = res.body;
+
+            console.log('Currently you are \'' + username + '\'')
 
             this.account = new Account(username || '', roleName || '', loggedIn);
             this.accountChanged.next(this.account);
@@ -56,24 +58,40 @@ export class AccountService {
         )
     }
 
-    logout() {
+    register(username: string, password: string) {
         const httpOptions = {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            
+           
             withCredentials: true, 
+            observe: 'response' as 'response'
+        };  
+          
+        return this.http
+        .post<any>(
+            'http://localhost:8080/api/auth/register',
+            {
+                username: username,
+                password: password
+            },
+            httpOptions
+        )
+    }
+
+    logout() {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'text/html; charset=UTF-8' }),
+            withCredentials: true,
             observe: 'response' as 'response'
         };
 
         this.http
         .get<any>(
-            'http://localhost:8080/api/auth/logout',
-            httpOptions
-        ).subscribe((res: HttpResponse<any>) => {
+            'http://localhost:8080/api/auth/logout'
+        ).subscribe(() => {
             this.account = new Account('', '', false);
             this.accountChanged.next(this.account);
-            this.basketService.clearBasket();
             this.router.navigate(['/login']);
-        })
+        }, (err) => console.log(err))
     }
 
     fetchOrders() {

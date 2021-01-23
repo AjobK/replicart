@@ -67,6 +67,56 @@ export class ReplicaService {
     return this.replicas[index];
   }
 
+  getReplicaById(id: number) {
+    const httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      
+        withCredentials: true, 
+        observe: 'response' as 'response'
+    };
+
+    return this.http
+    .get<any>(`http://localhost:8080/api/replica/${id}`, httpOptions)
+  }
+
+  updateReplicaById(replicaData: {
+    artist: string,
+    name: string,
+    origin: string,
+    cost: number,
+    year: number,
+    image_url: string
+  }, id: number) {
+    const httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      
+        withCredentials: true, 
+        observe: 'response' as 'response'
+    };
+
+    return this.http
+    .put<any>(`http://localhost:8080/api/replica/${id}`, replicaData, httpOptions)
+  }
+
+  createReplica(replicaData: {
+    artist: string,
+    name: string,
+    origin: string,
+    cost: number,
+    year: number,
+    image_url: string
+  }) {
+    const httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      
+        withCredentials: true, 
+        observe: 'response' as 'response'
+    };
+
+    return this.http
+    .post<any>(`http://localhost:8080/api/replica`, replicaData, httpOptions)
+  }
+
   removeReplica(replica: Replica) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

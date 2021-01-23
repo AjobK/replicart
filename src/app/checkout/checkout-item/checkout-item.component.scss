@@ -77,7 +77,23 @@ article.order-item {
             }
 
             &.admin {
+                > a {
+                    background-color: darken($background-color, 75%);
+
+                    &:hover {
+                        background-color: darken($background-color, 75%);
+                    }
+                }
+
                 > button {
+                    background-color: darken(adjust-hue($color: $secondary-tone, $degrees: 170), 20%);
+
+                    &:hover {
+                        background-color: darken(adjust-hue($color: $secondary-tone, $degrees: 170), 20%);
+                    }
+                }
+
+                > button, > a {
                     padding: 15px;
                     
                     > img {
@@ -85,18 +101,10 @@ article.order-item {
                         width: 15px;
                         height: 15px;
                     }
-
-                    &:first-child {
-                        background-color: darken(adjust-hue($color: $secondary-tone, $degrees: 170), 20%);
-                    }
-
-                    &:last-child {
-                        background-color: darken($background-color, 75%);
-                    }
                 }
             }
 
-            > button {
+            > button, > a {
                 transition: 0.2s;
                 cursor: pointer;
                 display: flex;

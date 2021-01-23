@@ -1,0 +1,84 @@
+<app-navigation></app-navigation>
+<section>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="!isLoading" [ngClass]="{ error: hasErrors }">
+        <div class="image-view">
+            <div class="replica-art-border" [ngClass]="{ 'no-border': !form || !form.control || form.control.value.image_url == '' }">
+                <img class="replica-art" src="{{ form.control.get('image_url').value }}" *ngIf="formLoaded && form.control.value.image_url != ''" />
+                <img class="replica-art" src="../../assets/icons/art.svg" *ngIf="!form || !form.control || form.control.value.image_url == ''" />
+            </div>
+        </div>
+        <div>
+            <label for="artist">Artist</label>
+            <input
+                type="text"
+                id="artist"
+                class="form-control"
+                ngModel
+                name="artist"
+                required
+            />
+        </div>
+        <div>
+            <label for="name">Name</label>
+            <input
+                type="text"
+                id="name"
+                class="form-control"
+                ngModel
+                name="name"
+                required
+            />
+        </div>
+        <div>
+            <label for="origin">Origin</label>
+            <input
+                type="text"
+                id="origin"
+                class="form-control"
+                ngModel
+                name="origin"
+                required
+            />
+        </div>
+        <div>
+            <label for="cost">Cost</label>
+            <input
+                type="number"
+                id="cost"
+                class="form-control"
+                ngModel
+                name="cost"
+                required
+            />
+        </div>
+        <div>
+            <label for="year">Year</label>
+            <input
+                type="number"
+                id="year"
+                class="form-control"
+                ngModel
+                name="year"
+                required
+            />
+        </div>
+        <div>
+            <label for="image_url">Image URL</label>
+            <input
+                type="url"
+                id="image_url"
+                class="form-control"
+                ngModel
+                name="image_url"
+                required
+            />
+        </div>
+        <button
+            class="btn small"
+            type="submit"
+            [disabled]="!form.valid"
+        >
+            Save
+        </button>
+    </form>
+</section>

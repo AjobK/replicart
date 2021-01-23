@@ -16,9 +16,9 @@
             <button (click)="replicaService.removeReplica(replicaItem.replica)" *ngIf="adminView">
                 <img src="../../../assets/icons/minus.svg" />
             </button>
-            <button (click)="increaseAmount()" *ngIf="adminView">
+            <a [routerLink]="'/manage/replica/' + replicaItem.replica.id" *ngIf="adminView">
                 <img src="../../../assets/icons/dots.svg" />
-            </button>
+            </a>
         </div>
     </div>
 </article>

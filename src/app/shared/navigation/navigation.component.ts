@@ -9,60 +9,57 @@ import { BasketService } from '../services/basket.service';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-  @Output() windowWidth: number;
-  @Output() links = [
-    ['HOME', '/'],
-    ['REPLICAS', '/replicas'],
-    ['LOGIN', '/login']
-  ]
-
-  @Output() menuOpen = false;
-  @Output() basketSize = 0;
-
-  constructor(
-    private basketService: BasketService,
-    public accountService: AccountService
-  ) {
-    this.accountService.accountChanged.subscribe(
-      (account) => {
-        this.setLinks(account);
-      }
-    )
-
-    this.setLinks(this.accountService.account);
-  }
-
-  ngOnInit(): void {
-    this.windowWidth = window.innerWidth;
-    this.basketService.basketChanged.subscribe(
-      (basket: Basket) => {
-          this.basketSize = basket.getReplicaCount();
-      }
-    )
-
-    this.basketSize = this.basketService.getBasket().getReplicaCount();
-  }
-
-  setLinks(account): void {
-    let newLinks = [
-      ['HOME', '/'],
-      ['REPLICAS', '/replicas'],
+    @Output() windowWidth: number;
+    @Output() links = [
+        ['HOME', '/'],
+        ['REPLICAS', '/replicas'],
+        ['LOGIN', '/login']
     ];
 
-    if (!account.loggedIn)
-      newLinks.push(['LOGIN', '/login'])
+    @Output() menuOpen = false;
+    @Output() basketSize = 0;
 
-    if (account.roleName == 'Administrator')
-      newLinks.push(['MANAGE', '/manage'])
+    constructor(private basketService: BasketService, public accountService: AccountService) {
+        this.accountService.accountChanged.subscribe(
+            (account) => {
+                this.setLinks(account);
+            }
+        );
 
-    if (account.roleName == 'Customer')
-      newLinks.push(['ORDERS', '/orders'])
+        this.setLinks(this.accountService.account);
+    }
 
-    this.links = newLinks;
-  }
+    ngOnInit(): void {
+        this.windowWidth = window.innerWidth;
+        this.basketService.basketChanged.subscribe(
+            (basket: Basket) => {
+                this.basketSize = basket.getReplicaCount();
+            }
+        );
 
-  toggleMenu(): void {
-    this.windowWidth = window.innerWidth;
-    this.menuOpen = !this.menuOpen 
-  }
+        this.basketSize = this.basketService.getBasket().getReplicaCount();
+    }
+
+    setLinks(account): void {
+        let newLinks = [
+            ['HOME', '/'],
+            ['REPLICAS', '/replicas'],
+        ];
+
+        if (!account.loggedIn)
+            newLinks.push(['LOGIN', '/login'])
+
+        if (account.roleName == 'Administrator')
+            newLinks.push(['MANAGE', '/manage'])
+
+        if (account.roleName == 'Customer')
+            newLinks.push(['ORDERS', '/orders'])
+
+        this.links = newLinks;
+    }
+
+    toggleMenu(): void {
+        this.windowWidth = window.innerWidth;
+        this.menuOpen = !this.menuOpen 
+    }
 }

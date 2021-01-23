@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
+import { first } from 'rxjs/operators';
 import { AccountService } from '../services/account.service';
 
 @Injectable({

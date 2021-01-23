@@ -2,42 +2,37 @@ const db = require('../database/db');
 
 module.exports = class ReplicaDAO {
     static getReplicas() {
-        return db.query('SELECT * FROM replica');
+        return db.query('SELECT * FROM replica ORDER BY name');
     }
 
-    static getTrees(userID) {
-        return db.query('SELECT tree_version.name AS title, tree_version.versionnumber AS version, tree.id, tree.start_question_id FROM tree LEFT JOIN tree_version ON tree.id = tree_version.id WHERE user_id = $1;', [userID]);
-    }
-
-    static async getTreeById(id) {
-        return db.query('SELECT tree_version.name AS title, tree_version.versionnumber AS version, tree.id, tree.start_question_id, tree.user_id FROM tree LEFT JOIN tree_version ON tree.id = tree_version.id WHERE tree.id = $1;', [id]);
-    }
-
-    static createTree(body) {
+    static createReplica(body) {
         // Creates start question, tree and tree_version in DB
-        const { startQuestionContent, treeName, userID } = body;
+        const { artist, name, origin, cost, imageUrl, year } = body;
 
-        return db.query('SELECT create_tree($1, $2, $3);', [startQuestionContent, treeName, userID])
+        return db.query('INSERT INTO replica (artist, name, origin, cost, image_url, year) VALUES ($1, $2, $3, $4, $5, $6);', [artist, name, origin, cost, imageUrl, year])
     }
 
-    static updateTree(body) {
+    static updateReplicaById(body, id) {
         // Extract body data into constants
-        const { id, name, startQuestionId } = body;
+        const { artist, name, origin, year, cost, imageUrl } = body;
 
-        if (!id) throw new InvalidIDError('No tree ID passed');
+        if (!id) throw new InvalidIDError('No replica ID passed');
 
-        if (!startQuestionId)
-            return db.query('UPDATE tree_version SET name = $1 WHERE id = $2;', [name, id]);
-        else
-            return db.query(
-                'UPDATE tree_version SET name = $1, startQuestionId = $2 WHERE id = $3;',
-                [name, startQuestionId, id]
-            );
+        console.log(body);
+
+        return db.query(
+            'UPDATE replica SET artist = $2, name = $3, origin = $4, year = $5, cost = $6, image_url = $7 WHERE id = $1;',
+            [id, artist, name, origin, year, cost, imageUrl]
+        );
     }
 
     static deleteReplicaById(id) {
         if (!id) throw new InvalidIDError('No replica ID passed');
 
-        return db.query('DELETE FROM replica WHERE id=$1;', [id]);
+        return db.query('DELETE FROM replica WHERE id=$1;', [id])
+    }
+
+    static getReplicaById(id) {
+        return db.query('SELECT * FROM replica WHERE id=$1', [id]);
     }
 }

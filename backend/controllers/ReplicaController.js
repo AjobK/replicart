@@ -24,55 +24,44 @@ exports.getReplicas = (req, res, next) =>  {
     })
 }
 
-exports.getReplicaById = (req, res, next) => {
-    let user_id;
-    let userID = req.get('userid');
-
-    Replica.getReplicaById(req.params.id)
-    .then(trees => {
-        user_id = trees.rows[0].user_id;
-        if(userID != user_id){
-            const error = new Error('Not authorized');
-            error.statusCode = 403;
-            throw error;
-        }
-        return trees.rows[0];
-    })
-    .then(result => {
+exports.getReplicaById = (req, res, next) =>  {
+    ReplicaDAO.getReplicaById(req.params.id)
+    .then(replica => {
         res.status(200).json({
-            message: 'Fetched tree successfully.',
-            tree: result
+            message: 'Fetched replica successfully.',
+            replica: replica.rows[0]
         })
     })
     .catch(err => {
         if (!err.statusCode) {
             err.statusCode = 500;
         }
+
         next(err);
-    });
-};
+    })
+}
 
 exports.createReplica = (req, res, next) => {
-    Replica.createReplica(req.body)
+    ReplicaDAO.createReplica(req.body)
     .then(tree => {
         res.status(200).json({
-            message: 'Created tree successfully.',
+            message: 'Created replica successfully.',
             trees: tree.rows[0]
         })
     })
     .catch(err => {
-        if (!err.statusCode) {
+        if (!err.statusCode)
             err.statusCode = 500;
-        }
+
         next(err);
     });
 };
 
-exports.updateReplica = (req, res, next) => {
-    Replica.updateReplica(req.body)
+exports.updateReplicaById = (req, res, next) => {
+    ReplicaDAO.updateReplicaById(req.body, req.params.id)
     .then(tree => {
         res.status(200).json({
-            message: 'Updated tree successfully.',
+            message: 'Updated replica successfully.',
             trees: tree.rows[0]
         })
     })

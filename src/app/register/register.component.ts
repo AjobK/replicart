@@ -5,14 +5,13 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { Account } from '../shared/models/account.model';
 import { AccountService } from '../shared/services/account.service';
-import { BasketService } from '../shared/services/basket.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
     @ViewChild('authForm') form: NgForm;
     @Output() hasErrors: boolean = false
     isLoading = false;
@@ -28,7 +27,13 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(form: NgForm) {
-        this.accountService.login(form.value.username, form.value.password)
+        if (form.value.password != form.value.repeatPassword) {
+            this.hasErrors = true;
+
+            this.form.statusChanges.pipe(first()).subscribe(res => { if (this.hasErrors) this.hasErrors = false; });
+            return;
+        }
+        this.accountService.register(form.value.username, form.value.password)
         .subscribe(
             (res: HttpResponse<any>) => {
                 const { username, roleName } = res.body;

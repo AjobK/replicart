@@ -3,12 +3,13 @@ const { body } = require('express-validator');
 
 const orderController = require('../controllers/OrderController');
 const isAuth = require('../middleware/isAuth');
+const isCustomer = require('../middleware/isCustomer');
 
 const router = express.Router();
 
 // GET /auth/users
-router.post('/', isAuth, orderController.orderReplicas);
+router.post('/', isAuth, isCustomer, orderController.orderReplicas);
 
-router.get('/', isAuth, orderController.getOrders);
+router.get('/', isAuth, isCustomer, orderController.getOrders);
 
 module.exports = router;

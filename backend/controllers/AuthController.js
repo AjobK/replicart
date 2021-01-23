@@ -29,13 +29,19 @@ exports.getLoggedIn = (req, res, next) => {
 
     AuthDAO.getAccountByUsername(decodedToken.username)
     .then(user => {
-        // Initial check whether user is logged in (On front-end app load)
-        // Based on valid decodable token
-        res.status(200).json({
-            loggedIn: loggedIn,
-            username: user.rows[0].username,
-            roleName: user.rows[0].role_name
-        });
+        if (!user.rows[0]) {
+            res.status(200).json({
+                loggedIn: false
+            })
+        } else {
+            // Initial check whether user is logged in (On front-end app load)
+            // Based on valid decodable token
+            res.status(200).json({
+                loggedIn: loggedIn,
+                username: user.rows[0].username,
+                roleName: user.rows[0].role_name
+            });
+        }
     })
 }
 
@@ -61,12 +67,13 @@ exports.login = (req, res, next) => {
 
     AuthDAO.getFullAccountByUsername(username)
     .then(user => {
-        if (!user) {
+        loadedUser = user.rows[0];
+
+        if (!loadedUser) {
             const error = new Error('A user with this username does not exist.');
             error.statusCode = 401;
             throw error;
         }
-        loadedUser = user.rows[0];
 
         return bcrypt.compare(password, loadedUser.password);
     })
@@ -97,16 +104,14 @@ exports.login = (req, res, next) => {
         if (!err.statusCode) {
             err.statusCode = 500;
         }
-        next(err);
+        next();
     });
 }
 
 exports.logout = (req, res, next) => {
     res.setHeader('Set-Cookie', `token=deleted; path=/`);
-    res.status(200).json({
-        message: 'Logged out succesfully'
-    });
-    res.send();
+    res.status(200);
+    res.json({message: 'Logged out succesfully'});
 }
 
 exports.updateLastLogin = (req, res, next) => {
@@ -130,7 +135,16 @@ exports.register = async (req, res, next) => {
     body.password = await bcrypt.hash(body.password, 12);
 
     AuthDAO.registerAccount(body)
-    .then(() => {
+    .then((data) => {
+        const token = jwt.sign(
+            {
+                id: data.rows[0].id,
+                username: body.username
+            }, JWT_SECRET, {expiresIn: '1h'}
+        ); //Generate token for client with an expire time of 1 hour.
+
+        // Setting path to '/' so HTTP Cookie is retrievable across website
+        res.setHeader('Set-Cookie', `token=${token}; HttpOnly; expires=${+new Date(new Date().getTime()+86409000).toUTCString()}; path=/`);
         res.status(200).json({
             message: 'Created user successfully.'
         })

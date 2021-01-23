@@ -29,19 +29,32 @@
                 minlength="3"
             />
         </div>
+        <div>
+            <label for="repeatPassword">Repeat password</label>
+            <input
+                placeholder="************"
+                type="password"
+                id="repeatPassword"
+                class="form-control"
+                ngModel
+                name="repeatPassword"
+                required
+                minlength="3"
+            />
+        </div>
         <div class="button-holder">
             <a
-                [routerLink]="['/register']"
+                [routerLink]="['/login']"
                 class="btn small link"
             >
-                Register
+                Login
             </a>
             <button
                 class="btn small"
                 type="submit"
                 [disabled]="!authForm.valid"
             >
-                Login
+                Register
             </button>
         </div>
     </form>

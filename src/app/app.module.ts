@@ -14,11 +14,13 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutItemComponent } from './checkout/checkout-item/checkout-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuardService } from './shared/guards/auth-guard.service';
 import { OrdersOverviewComponent } from './orders-overview/orders-overview.component';
 import { ManageComponent } from './manage/manage.component';
 import { AdminGuardService } from './shared/guards/admin-guard.service';
+import { ManageReplicaComponent } from './manage-replica/manage-replica.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +34,16 @@ import { AdminGuardService } from './shared/guards/admin-guard.service';
     CheckoutItemComponent,
     LoginComponent,
     OrdersOverviewComponent,
-    ManageComponent
+    ManageComponent,
+    ManageReplicaComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [ReplicaService, BasketService, AuthGuardService, AdminGuardService],
   bootstrap: [AppComponent]

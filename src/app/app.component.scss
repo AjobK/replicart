@@ -21,28 +21,39 @@
     font-size: 18pt;
     cursor: pointer;
 
-    &:disabled {
+    &.link {
+        background-color: rgba(0,0,0,0);
+        padding: 10px 30px;
+        color: rgba(0,0,0,0.35);
+
+        &.small {
+            padding: 8px 15px;
+            font-size: 12pt;
+        }
+    }
+
+    &:not(.link):disabled {
         background-color: rgba(0,0,0,0.35);
     }
 
-    &.small {
+    &:not(.link).small {
         padding: 8px 15px 8px 20px;
         font-size: 12pt;
 
-        &::after {
+        &:not(.link)::after {
             margin-left: 10px;
             width: 8pt;
             height: 10pt;
         }
     }
 
-    &.alt-hover {
+    &:not(.link).alt-hover {
         &:hover {
             background-color: darken($secondary-tone, 50%);
         }
     }
 
-    &::after {
+    &:not(.link)::after {
         vertical-align: middle;
         margin-left: 20px;
         display: inline-block;
@@ -53,7 +64,7 @@
         background-image: url('../assets/icons/arrow.svg');
     }
     
-    &:hover {
+    &:not(.link):hover {
         transition: 0.2s;
         background-color: $secondary-tone;
         transform: scale(1.05);
