@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Account } from '../models/account.model';
-import { logging } from 'protractor';
 import { Replica } from '../models/replica.model';
-import { BasketService } from './basket.service';
-
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +14,10 @@ export class AccountService {
     accountChanged: Subject<Account> = new Subject<Account>();
 
     constructor(private http: HttpClient, private router: Router) {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            
-            withCredentials: true, 
-            observe: 'response' as 'response'
-        };
-
         this.http
         .get<any>(
             'http://localhost:8080/api/auth/login-check',
-            httpOptions
+            environment.DEFAULT_HTTP_OPTIONS
         ).subscribe((res: HttpResponse<any>) => {
             const { loggedIn, username, roleName } = res.body;
 
@@ -40,13 +31,6 @@ export class AccountService {
     }
 
     login(username: string, password: string) {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-           
-            withCredentials: true, 
-            observe: 'response' as 'response'
-        };  
-          
         return this.http
         .post<any>(
             'http://localhost:8080/api/auth/login',
@@ -54,18 +38,11 @@ export class AccountService {
                 username: username,
                 password: password
             },
-            httpOptions
+            environment.DEFAULT_HTTP_OPTIONS
         )
     }
 
     register(username: string, password: string) {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-           
-            withCredentials: true, 
-            observe: 'response' as 'response'
-        };  
-          
         return this.http
         .post<any>(
             'http://localhost:8080/api/auth/register',
@@ -73,17 +50,11 @@ export class AccountService {
                 username: username,
                 password: password
             },
-            httpOptions
+            environment.DEFAULT_HTTP_OPTIONS
         )
     }
 
     logout() {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'text/html; charset=UTF-8' }),
-            withCredentials: true,
-            observe: 'response' as 'response'
-        };
-
         this.http
         .get<any>(
             'http://localhost:8080/api/auth/logout'
@@ -95,17 +66,10 @@ export class AccountService {
     }
 
     fetchOrders() {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            
-            withCredentials: true, 
-            observe: 'response' as 'response'
-        };
-
         this.http
         .get<any>(
             'http://localhost:8080/api/order',
-            httpOptions
+            environment.DEFAULT_HTTP_OPTIONS
         ).subscribe((res: HttpResponse<any>) => {
             let orders = [];
 

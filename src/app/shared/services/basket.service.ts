@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Basket } from '../models/basket.model';
 import { Replica } from '../models/replica.model';
 import { AccountService } from './account.service';
@@ -27,17 +28,10 @@ export class BasketService {
     }
 
     fetchBasketItems() {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            
-            withCredentials: true, 
-            observe: 'response' as 'response'
-        };
-
         console.log('Fetching basket items...')
 
         this.http
-        .get<any>('http://localhost:8080/api/basket-item', httpOptions)
+        .get<any>('http://localhost:8080/api/basket-item', environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(
             (res: HttpResponse<any>) => {
                 if (!res.body.basketItems) return;
@@ -70,18 +64,11 @@ export class BasketService {
             }
         }
 
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            
-            withCredentials: true, 
-            observe: 'response' as 'response'
-        };
-
         this.http
         .post<any>('http://localhost:8080/api/basket-item', {
             replicaId: replica.id,
             quantity: replicaIndex == -1 ? 1 : this.basket.storedReplicas[replicaIndex].amount+1
-        }, httpOptions)
+        }, environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(
             (res: HttpResponse<any>) => {
                 if (replicaIndex != -1)
@@ -105,18 +92,11 @@ export class BasketService {
 
         if (replicaIndex == -1) return;
 
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            
-            withCredentials: true, 
-            observe: 'response' as 'response'
-        };
-
         this.http
         .put<any>('http://localhost:8080/api/basket-item', {
             replicaId: basketItem.replica.id,
             quantity: basketItem.amount
-        }, httpOptions)
+        }, environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(
             (res: HttpResponse<any>) => {
                 if (basketItem.amount <= 0)
@@ -149,15 +129,8 @@ export class BasketService {
     }
 
     clearBasketItems() {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            
-            withCredentials: true, 
-            observe: 'response' as 'response'
-        };
-
         this.http
-        .delete<any>('http://localhost:8080/api/basket-item', httpOptions)
+        .delete<any>('http://localhost:8080/api/basket-item', environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(() => {
             console.log('Deleting items in DB')
             this.clearBasket()
@@ -165,15 +138,8 @@ export class BasketService {
     }
 
     sendOrder() {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            
-            withCredentials: true, 
-            observe: 'response' as 'response'
-        };
-
         this.http
-        .post<any>('http://localhost:8080/api/order', { 'orderItems': this.basket.storedReplicas }, httpOptions)
+        .post<any>('http://localhost:8080/api/order', { 'orderItems': this.basket.storedReplicas }, environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(
             (res: HttpResponse<any>) => {
                 this.clearBasketItems();

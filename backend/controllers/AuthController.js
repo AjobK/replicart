@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { decode } = require('punycode');
 const AuthDAO = require('../dao/AuthDAO');
 
 require('dotenv').config()
@@ -12,10 +11,6 @@ exports.getLoggedIn = (req, res, next) => {
     let decodedToken = ''
 
     const { token } = req.cookies
-
-    // Check within server
-    // console.log('\n-----\n\nGet logged in?')
-    // console.log(req.cookies.token ? '\nYes!\n\n' + req.cookies.token : '\nNo...\n\n' + req.cookies.token)
 
     if (!token) {
         loggedIn = false;
