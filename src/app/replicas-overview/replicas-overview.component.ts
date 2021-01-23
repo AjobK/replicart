@@ -19,8 +19,6 @@ export class ReplicasOverviewComponent implements OnInit {
     constructor(private replicaService: ReplicaService, private accountService: AccountService) { }
 
     ngOnInit(): void {
-        this.replicaService.fetchReplicas();
-
         this.subscription = this.replicaService.replicasChanged
         .subscribe(
             (replicas: Replica[]) => {
