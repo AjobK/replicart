@@ -28,8 +28,6 @@ export class BasketService {
     }
 
     fetchBasketItems() {
-        console.log('Fetching basket items...')
-
         this.http
         .get<any>('http://localhost:8080/api/basket-item', environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(
@@ -47,8 +45,6 @@ export class BasketService {
                         item.replica.year
                     ), amount: item.quantity });
                 })
-
-                console.log(this.basket.storedReplicas)
 
                 this.basketChanged.next(this.basket);
             }
@@ -132,7 +128,6 @@ export class BasketService {
         this.http
         .delete<any>('http://localhost:8080/api/basket-item', environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(() => {
-            console.log('Deleting items in DB')
             this.clearBasket()
         });
     }

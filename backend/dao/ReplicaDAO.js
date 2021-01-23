@@ -18,8 +18,6 @@ module.exports = class ReplicaDAO {
 
         if (!id) throw new InvalidIDError('No replica ID passed');
 
-        console.log(body);
-
         return db.query(
             'UPDATE replica SET artist = $2, name = $3, origin = $4, year = $5, cost = $6, image_url = $7 WHERE id = $1;',
             [id, artist, name, origin, year, cost, imageUrl]

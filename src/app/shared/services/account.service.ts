@@ -21,8 +21,6 @@ export class AccountService {
         ).subscribe((res: HttpResponse<any>) => {
             const { loggedIn, username, roleName } = res.body;
 
-            console.log('Currently you are \'' + username + '\'')
-
             this.account = new Account(username || '', roleName || '', loggedIn);
             this.accountChanged.next(this.account);
         });
@@ -62,7 +60,7 @@ export class AccountService {
             this.account = new Account('', '', false);
             this.accountChanged.next(this.account);
             this.router.navigate(['/login']);
-        }, (err) => console.log(err))
+        })
     }
 
     fetchOrders() {

@@ -68,7 +68,6 @@ export class ReplicasOverviewComponent implements OnInit {
                 if (totalRatioStack < bestList[1]) bestList = [y, totalRatioStack];
             }
 
-            // console.log(this.replicas[i].name + ' placed in list ' + bestList[0] + '/' + (this.columnSize-1))
             this.replicaLists[bestList[0]].push(this.replicas[i]);
         }
 
