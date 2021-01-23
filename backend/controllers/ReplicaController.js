@@ -1,11 +1,4 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const AuthDao = require('../dao/AuthDAO');
 const ReplicaDAO = require('../dao/ReplicaDAO');
-
-require('dotenv').config()
-
-const { JWT_SECRET } = process.env;
 
 exports.getReplicas = (req, res, next) =>  {
     ReplicaDAO.getReplicas()

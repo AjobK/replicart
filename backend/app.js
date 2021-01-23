@@ -2,8 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 // Routes utilizing resource files
-const replicaRoutes = require('./resources/ReplicaResource');
-const authRoutes = require('./resources/AuthResource');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
@@ -25,8 +23,7 @@ app.use(cors({
 //     next();
 // });
 
-// Utilize routes
-
+// Initialize routes with /api prefix
 app.use('/api', require('./generalRouter'));
 
 app.listen(8080);

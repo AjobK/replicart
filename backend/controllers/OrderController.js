@@ -1,10 +1,4 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const OrderDAO = require('../dao/OrderDAO');
-
-require('dotenv').config()
-
-const { JWT_SECRET } = process.env;
 
 exports.orderReplicas = (req, res, next) =>  {
     OrderDAO.createOrder(req.decoded)

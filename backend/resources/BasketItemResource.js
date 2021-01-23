@@ -1,7 +1,6 @@
 const express = require('express');
 
 const basketItemController = require('../controllers/BasketItemController');
-const isAdministrator = require('../middleware/isAdministrator');
 const isAuth = require('../middleware/isAuth');
 const isCustomer = require('../middleware/isCustomer');
 

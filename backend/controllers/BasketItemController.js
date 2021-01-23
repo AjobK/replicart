@@ -1,11 +1,4 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const AuthDao = require('../dao/AuthDAO');
 const BasketItemDAO = require('../dao/BasketItemDAO');
-
-require('dotenv').config()
-
-const { JWT_SECRET } = process.env;
 
 exports.getBasketItems = (req, res, next) =>  {
     if (!req.decoded || !req.decoded.id) throw Error('Invalid token data')

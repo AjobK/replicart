@@ -114,21 +114,6 @@ exports.logout = (req, res, next) => {
     res.json({message: 'Logged out succesfully'});
 }
 
-exports.updateLastLogin = (req, res, next) => {
-    AuthDAO.updateAccountLastLogin(req.body)
-        .then(() => {
-            res.status(200).json({
-                message: 'Updated user last login date!'
-            });
-        })
-        .catch(err => {
-            if (!err.statusCode) {
-                err.statusCode = 500;
-            }
-            next(err);
-        });
-}
-
 exports.register = async (req, res, next) => {
     const { body } = req;
 

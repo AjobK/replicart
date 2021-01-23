@@ -1,5 +1,4 @@
 const db = require('../database/db');
-const { InvalidIDError } = require('../errors');
 
 module.exports = class AuthDAO {
     static getUsers(){
