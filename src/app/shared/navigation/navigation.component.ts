@@ -15,7 +15,6 @@ export class NavigationComponent implements OnInit {
         ['REPLICAS', '/replicas'],
         ['LOGIN', '/login']
     ];
-
     @Output() menuOpen = false;
     @Output() basketSize = 0;
 
