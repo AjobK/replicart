@@ -13,7 +13,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser())
 app.use(cors({
-    origin: FRONTEND_URL,
+    origin: [FRONTEND_URL, 'kustra.nl', 'localhost:4200'],
     credentials: true
 }))
 

@@ -57,10 +57,6 @@ export class NavigationComponent implements OnInit {
         if (account.roleName == 'Customer')
             newLinks.push(['ORDERS', '/orders'])
 
-        console.log('LINKS:')
-        console.log(account)
-        console.log(newLinks)
-
         this.links = newLinks;
     }
 

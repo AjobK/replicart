@@ -16,7 +16,7 @@ export class AccountService {
     constructor(private http: HttpClient, private router: Router) {
         this.http
         .get<any>(
-            'http://localhost:8080/api/auth/login-check',
+            environment.API_URL + '/api/auth/login-check',
             environment.DEFAULT_HTTP_OPTIONS
         ).subscribe((res: HttpResponse<any>) => {
             const { loggedIn, username, roleName } = res.body;
@@ -31,7 +31,7 @@ export class AccountService {
     login(username: string, password: string) {
         return this.http
         .post<any>(
-            'http://localhost:8080/api/auth/login',
+            environment.API_URL + '/api/auth/login',
             {
                 username: username,
                 password: password
@@ -43,7 +43,7 @@ export class AccountService {
     register(username: string, password: string) {
         return this.http
         .post<any>(
-            'http://localhost:8080/api/auth/register',
+            environment.API_URL + '/api/auth/register',
             {
                 username: username,
                 password: password
@@ -55,7 +55,7 @@ export class AccountService {
     logout() {
         this.http
         .get<any>(
-            'http://localhost:8080/api/auth/logout',
+            environment.API_URL + '/api/auth/logout',
             environment.DEFAULT_HTTP_OPTIONS
         ).subscribe(() => {
             this.account = new Account('', '', false);
@@ -67,7 +67,7 @@ export class AccountService {
     fetchOrders() {
         this.http
         .get<any>(
-            'http://localhost:8080/api/order',
+            environment.API_URL + '/api/order',
             environment.DEFAULT_HTTP_OPTIONS
         ).subscribe((res: HttpResponse<any>) => {
             let orders = [];

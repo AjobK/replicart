@@ -24,12 +24,10 @@ export class ReplicaService {
         this.replicasChanged.next(this.replicas);
 
         this.http
-        .get<any>('http://localhost:8080/api/replica', environment.DEFAULT_HTTP_OPTIONS)
+        .get<any>(environment.API_URL + '/api/replica', environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(
             (res: HttpResponse<any>) => {
                 this.replicas = [];
-                console.log('Replicas: ')
-                console.log(res.body.replicas)
                 res.body.replicas.map((replica) => {
                     this.replicas.push(new Replica(
                         replica.id,
@@ -61,7 +59,7 @@ export class ReplicaService {
 
     getReplicaById(id: number) {
         return this.http
-        .get<any>(`http://localhost:8080/api/replica/${id}`, environment.DEFAULT_HTTP_OPTIONS)
+        .get<any>(environment.API_URL + `/api/replica/${id}`, environment.DEFAULT_HTTP_OPTIONS)
     }
 
     updateReplicaById(replicaData: {
@@ -74,7 +72,7 @@ export class ReplicaService {
     }, id: number) {
 
         return this.http
-        .put<any>(`http://localhost:8080/api/replica/${id}`, replicaData, environment.DEFAULT_HTTP_OPTIONS)
+        .put<any>(environment.API_URL + `/api/replica/${id}`, replicaData, environment.DEFAULT_HTTP_OPTIONS)
     }
 
     createReplica(replicaData: {
@@ -86,12 +84,12 @@ export class ReplicaService {
         imageUrl: string
     }) {
         return this.http
-        .post<any>(`http://localhost:8080/api/replica`, replicaData, environment.DEFAULT_HTTP_OPTIONS)
+        .post<any>(environment.API_URL + `/api/replica`, replicaData, environment.DEFAULT_HTTP_OPTIONS)
     }
 
     removeReplica(replica: Replica) {
         this.http
-        .delete<any>(`http://localhost:8080/api/replica/${replica.id}`, environment.DEFAULT_HTTP_OPTIONS)
+        .delete<any>(environment.API_URL + `/api/replica/${replica.id}`, environment.DEFAULT_HTTP_OPTIONS)
         .pipe(first())
         .subscribe(
             (res: HttpResponse<any>) => {

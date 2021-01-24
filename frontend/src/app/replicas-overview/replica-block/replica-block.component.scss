@@ -56,7 +56,7 @@ article {
             }
         }
 
-        &:hover {
+        &:hover, &:active, &:focus {
             transition: 0.2s;
             opacity: 1;
         }

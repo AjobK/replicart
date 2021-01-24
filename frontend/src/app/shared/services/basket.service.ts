@@ -29,7 +29,7 @@ export class BasketService {
 
     fetchBasketItems() {
         this.http
-        .get<any>('http://localhost:8080/api/basket-item', environment.DEFAULT_HTTP_OPTIONS)
+        .get<any>(environment.API_URL + '/api/basket-item', environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(
             (res: HttpResponse<any>) => {
                 if (!res.body.basketItems) return;
@@ -61,7 +61,7 @@ export class BasketService {
         }
 
         this.http
-        .post<any>('http://localhost:8080/api/basket-item', {
+        .post<any>(environment.API_URL + '/api/basket-item', {
             replicaId: replica.id,
             quantity: replicaIndex == -1 ? 1 : this.basket.storedReplicas[replicaIndex].amount+1
         }, environment.DEFAULT_HTTP_OPTIONS)
@@ -89,7 +89,7 @@ export class BasketService {
         if (replicaIndex == -1) return;
 
         this.http
-        .put<any>('http://localhost:8080/api/basket-item', {
+        .put<any>(environment.API_URL + '/api/basket-item', {
             replicaId: basketItem.replica.id,
             quantity: basketItem.amount
         }, environment.DEFAULT_HTTP_OPTIONS)
@@ -126,7 +126,7 @@ export class BasketService {
 
     clearBasketItems() {
         this.http
-        .delete<any>('http://localhost:8080/api/basket-item', environment.DEFAULT_HTTP_OPTIONS)
+        .delete<any>(environment.API_URL + '/api/basket-item', environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(() => {
             this.clearBasket()
         });
@@ -134,7 +134,7 @@ export class BasketService {
 
     sendOrder() {
         this.http
-        .post<any>('http://localhost:8080/api/order', { 'orderItems': this.basket.storedReplicas }, environment.DEFAULT_HTTP_OPTIONS)
+        .post<any>(environment.API_URL + '/api/order', { 'orderItems': this.basket.storedReplicas }, environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(
             (res: HttpResponse<any>) => {
                 this.clearBasketItems();
