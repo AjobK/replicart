@@ -28,6 +28,8 @@ export class BasketService {
     }
 
     fetchBasketItems() {
+        if (this.accountService.account.roleName != 'Customer') return;
+
         this.http
         .get<any>(environment.API_URL + '/api/basket-item', environment.DEFAULT_HTTP_OPTIONS)
         .subscribe(
