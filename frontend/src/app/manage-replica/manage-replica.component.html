@@ -3,7 +3,7 @@
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="!isLoading" [ngClass]="{ error: hasErrors }">
         <div class="image-view">
             <div class="replica-art-border" [ngClass]="{ 'no-border': !form || !form.control || form.control.value.image_url == '' }">
-                <img class="replica-art" src="{{ form.control.get('image_url').value }}" *ngIf="formLoaded && form.control.value.image_url != ''" />
+                <img class="replica-art" src="{{ form.control.get('image_url') ? form.control.get('image_url').value : '' }}" *ngIf="formLoaded && form.control.value.image_url != ''" />
                 <img class="replica-art" src="../../assets/icons/art.svg" *ngIf="!form || !form.control || form.control.value.image_url == ''" />
             </div>
         </div>

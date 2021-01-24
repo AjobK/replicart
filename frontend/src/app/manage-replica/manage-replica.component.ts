@@ -30,6 +30,8 @@ export class ManageReplicaComponent implements OnInit {
             if (data.manageType != 'create') {
                 this.route.params.pipe(first()).subscribe(params => {
                     if (!params.id) return;
+
+                    console.log('creating')
         
                     this.replicaService.getReplicaById(params.id)
                     .pipe(first())
