@@ -113,6 +113,7 @@ header {
                 background-color: $background-color;
 
                 > nav {
+                    position: relative;
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
@@ -212,6 +213,7 @@ header {
 nav {
     width: 100%;
     display: flex;
+    align-items: center;
     
     > a {
         cursor: pointer;
@@ -243,5 +245,43 @@ nav {
             bottom: -2px;
             left: 0;
         }
+    }
+}
+
+.username {
+    font-size: 14pt;
+    margin-left: auto;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    line-height: 10pt;
+    opacity: 0.5;
+    text-transform: uppercase;
+    cursor: default;
+
+    @media only screen and (max-width: $mobile-large) {
+        color: $background-color;
+        position: absolute;
+        height: 64px;
+        padding: 0 4vw;
+        background-color: $primary-color;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        max-width: 50%;
+
+        &::after {
+            background-image: url('../../../assets/icons/profile-white.svg') !important;
+        }
+    }
+
+    &::after {
+        margin-left: 7px;
+        display: inline-block;
+        width: 12pt;
+        height: 12pt;
+        content:"";
+        background-repeat: no-repeat;
+        background-image: url('../../../assets/icons/profile.svg');
     }
 }

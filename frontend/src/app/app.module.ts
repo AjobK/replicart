@@ -21,6 +21,7 @@ import { ManageComponent } from './manage/manage.component';
 import { AdminGuardService } from './shared/guards/admin-guard.service';
 import { ManageReplicaComponent } from './manage-replica/manage-replica.component';
 import { RegisterComponent } from './register/register.component';
+import { PopUpComponent } from './pop-up/pop-up.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RegisterComponent } from './register/register.component';
     OrdersOverviewComponent,
     ManageComponent,
     ManageReplicaComponent,
-    RegisterComponent
+    RegisterComponent,
+    PopUpComponent
   ],
   imports: [
     BrowserModule,

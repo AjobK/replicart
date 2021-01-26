@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
     @Output() hasErrors: boolean = false
     isLoading = false;
     accountChangedSubscription: Subscription;
+    errorMessage: string;
 
     constructor(
         private elementRef: ElementRef,
@@ -34,8 +35,14 @@ export class RegisterComponent implements OnInit {
     onSubmit(form: NgForm) {
         if (form.value.password != form.value.repeatPassword) {
             this.hasErrors = true;
+            this.errorMessage = 'Passwords do not match'
 
-            this.form.statusChanges.pipe(first()).subscribe(res => { if (this.hasErrors) this.hasErrors = false; });
+            this.form.statusChanges.pipe(first()).subscribe(res => {
+                if (this.hasErrors) {
+                    this.hasErrors = false;
+                    this.errorMessage = undefined;
+                }
+            });
             return;
         }
         this.accountService.register(form.value.username, form.value.password)
@@ -49,11 +56,16 @@ export class RegisterComponent implements OnInit {
 
                 this.router.navigate(['replicas']);
             },
-            () => {
+            (res) => {
                 this.hasErrors = true;
-                this.form.reset();
+                this.errorMessage = res.error.message.split('\n').join('\n');
 
-                this.form.statusChanges.pipe(first()).subscribe(res => { if (this.hasErrors) this.hasErrors = false; });
+                this.form.statusChanges.pipe(first()).subscribe(res => {
+                    if (this.hasErrors) {
+                        this.hasErrors = false;
+                        this.errorMessage = undefined;
+                    }
+                });
             }
         )
     }

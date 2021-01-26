@@ -23,7 +23,6 @@ export class Replica {
         this.name = name;
         this.origin = origin;
         this.cost = cost % ~~cost == 0 ? ~~cost : cost; // Removes zeros from rounded price
-        this.imageUrl = imageUrl;
         this.year = year;
 
         let img = new Image();
@@ -33,6 +32,14 @@ export class Replica {
             this.height = img.height;
         });
 
+        img.addEventListener('error', () => {
+            img.src = '../../../assets/other/no-image.svg';
+            this.imageUrl = img.src;
+            this.width = img.width;
+            this.height = img.height;
+        })
+
+        this.imageUrl = imageUrl;
         img.src = this.imageUrl;
     }
 }

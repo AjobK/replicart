@@ -15,6 +15,7 @@
             ) + ' - 3px)') : '0px' }
         ">
             <nav>
+                <p class="username" *ngIf="accountService.account.username">{{ accountService.account.username }}</p>
                 <a
                     *ngFor="let link of links;"
                     [routerLink]="[link[1]]"
@@ -67,5 +68,6 @@
             Logout
             <span class="underline"></span>
         </a>
+        <p class="username" *ngIf="accountService.account.username">{{ accountService.account.username }}</p>
     </nav>
 </header>
