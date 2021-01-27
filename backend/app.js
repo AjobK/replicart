@@ -25,27 +25,27 @@ app.use(cors({
 console.log('im fine here 4')
 
 // External access (CORS)
-app.use((req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');                              // Allow client to send requests from given origin, * serving as a wildcard
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE'); // Allow client to use given request methods
-        res.setHeader('Access-Control-Allow-Headers', '*');   // Allow client to send request headers
-        res.setHeader('Access-Control-Allow-Credentials', true);   // Allow client to send request headers
-        next();
-    });
-    
-    // // Initialize routes with /api prefix
-    app.use('/api', require('./generalRouter'));
-    
-    const httpsServer = https.createServer({
-        key: fs.readFileSync('/etc/letsencrypt/live/kustra.nl/privkey.pem'),
-        cert: fs.readFileSync('/etc/letsencrypt/live/kustra.nl/fullchain.pem')
-    }, app);
-    console.log('im fine here 5')
-    
-    httpsServer.listen(8080, () => {
-        console.log('HTTPS Server runnign on port 8080 :-)');
-    })
-    console.log('im fine here 6')
+// app.use((req, res, next) => {
+//         res.setHeader('Access-Control-Allow-Origin', '*');                              // Allow client to send requests from given origin, * serving as a wildcard
+//         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE'); // Allow client to use given request methods
+//         res.setHeader('Access-Control-Allow-Headers', '*');   // Allow client to send request headers
+//         res.setHeader('Access-Control-Allow-Credentials', true);   // Allow client to send request headers
+//         next();
+//     });
+
+// // Initialize routes with /api prefix
+app.use('/api', require('./generalRouter'));
+
+const httpsServer = https.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/live/kustra.nl/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/kustra.nl/fullchain.pem')
+}, app);
+console.log('im fine here 5')
+
+httpsServer.listen(8080, () => {
+    console.log('HTTPS Server runnign on port 8080 :-)');
+})
+console.log('im fine here 6')
     
 
 
