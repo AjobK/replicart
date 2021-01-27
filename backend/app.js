@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const https = require('https');
+const fs = require('fs');
 
 // Routes utilizing resource files
 const cookieParser = require('cookie-parser');
@@ -29,4 +31,15 @@ app.use(cors({
 // Initialize routes with /api prefix
 app.use('/api', require('./generalRouter'));
 
-app.listen(8080);
+const httpsServer = https.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/live/kustra.nl/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/kustra.nl/fullchain.pem')
+}, app);
+
+httpsServer.listen(8080, () => {
+    console.log('HTTPS Server runnign on port 8080 :-)');
+})
+
+
+
+// app.listen(8080);
