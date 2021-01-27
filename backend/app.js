@@ -32,8 +32,8 @@ app.use(cors({
 app.use('/api', require('./generalRouter'));
 
 const httpsServer = https.createServer({
-    key: fs.readFileSync('/etc/letsencrypt/live/kustra.nl/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/kustra.nl/fullchain.pem')
+    key: fs.readFileSync('\\etc\\letsencrypt\\live\\kustra.nl\\privkey.pem'),
+    cert: fs.readFileSync('\\etc\\letsencrypt\\live\\kustra.nl\\fullchain.pem')
 }, app);
 
 httpsServer.listen(8080, () => {
