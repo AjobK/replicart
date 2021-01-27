@@ -14,14 +14,14 @@ const app = express();
 
 console.log('im fine here 1')
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 console.log('im fine here 2')
-app.use(cookieParser())
+// app.use(cookieParser())
 console.log('im fine here 3')
-app.use(cors({
-    origin: [FRONTEND_URL, 'http://kustra.nl', 'https://kustra.nl', 'http://localhost:4200'],
-    credentials: true
-}))
+// app.use(cors({
+//     origin: [FRONTEND_URL, 'http://kustra.nl', 'https://kustra.nl', 'http://localhost:4200'],
+//     credentials: true
+// }))
 console.log('im fine here 4')
 
 // External access (CORS)
