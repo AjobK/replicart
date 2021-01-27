@@ -1,4 +1,5 @@
 const db = require('../database/db');
+const escape = require('validator/lib/escape')
 
 module.exports = class AuthDAO {
     static getAccountByUsername(username){
@@ -7,12 +8,6 @@ module.exports = class AuthDAO {
 
     static getFullAccountByUsername(username){
         return db.query(`SELECT account.id, username, role.name AS role_name, password FROM account LEFT JOIN role ON role_id = role.id WHERE username=$1`, [username]);
-    }
-
-    static updateAccountLastLogin(body){
-        const { email } = body;
-
-        return db.query('UPDATE account SET last_logged_in = $1 WHERE email=$2', [new Date(), email]);
     }
 
     static registerAccount(body) {

@@ -9,20 +9,16 @@ exports.orderReplicas = (req, res, next) =>  {
                 message: 'Ordered replicas succesfully.'
             })
         })
-        .catch(err => {
-            if (!err.statusCode) {
-                err.statusCode = 500;
-            }
-    
-            next(err);
+        .catch(() => {
+            res.status(422).json({
+                message: 'Could not order replica(s).'
+            })
         })
     })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-
-        next(err);
+    .catch(() => {
+        res.status(422).json({
+            message: 'Could not order replica(s).'
+        })
     })
 }
 
