@@ -29,7 +29,7 @@ app.use(cors({
 // });
 
 // Initialize routes with /api prefix
-app.use('/api', require('./generalRouter'));
+// app.use('/api', require('./generalRouter'));
 
 const httpsServer = https.createServer({
     key: fs.readFileSync('/etc/letsencrypt/live/kustra.nl/privkey.pem'),
