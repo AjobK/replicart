@@ -1,4 +1,6 @@
-<app-navigation></app-navigation>
+<app-navigation>
+    Hello
+</app-navigation>
 <section class="col-1" *ngIf="!replicaListsLoaded">
     <div>
         Loading replicas...
@@ -8,39 +10,77 @@
     <div
         *ngFor="let a of [0, 1, 2, 3];"
     >
-        <app-replica-block
-        *ngFor="let replicaEl of replicaLists[a]; let i = index"
-        [replica]="replicaEl"
-        [index]="i"></app-replica-block>
+        <div *ngFor="let replicaEl of replicaLists[a]; let i = index">
+            <app-replica-block
+            [ngClass]="{
+                undisplayed:
+                    searchWord.length > 0 &&
+                    replicaEl.name.toLowerCase().indexOf(searchWord.toLowerCase()) == -1 &&
+                    replicaEl.artist.toLowerCase().indexOf(searchWord.toLowerCase()) == -1 &&
+                    replicaEl.origin.toLowerCase().indexOf(searchWord.toLowerCase()) == -1
+                }"
+            [replica]="replicaEl"
+            [index]="i"></app-replica-block>
+        </div>
     </div>
 </section>
 <section *ngIf="columnSize == 3" class="col-3"> <!--  Visibility hidden on certain size -->
     <div
         *ngFor="let a of [0, 1, 2];"
     >
-        <app-replica-block
-        *ngFor="let replicaEl of replicaLists[a]; let i = index"
-        [replica]="replicaEl"
-        [index]="i"></app-replica-block>
+        <div *ngFor="let replicaEl of replicaLists[a]; let i = index">
+            <app-replica-block
+            [ngClass]="{
+                undisplayed:
+                    searchWord.length > 0 &&
+                    replicaEl.name.toLowerCase().indexOf(searchWord.toLowerCase()) == -1 &&
+                    replicaEl.artist.toLowerCase().indexOf(searchWord.toLowerCase()) == -1 &&
+                    replicaEl.origin.toLowerCase().indexOf(searchWord.toLowerCase()) == -1
+                }"
+            [replica]="replicaEl"
+            [index]="i"></app-replica-block>
+        </div>
     </div>
 </section>
 <section *ngIf="columnSize == 2" class="col-2">
     <div
         *ngFor="let a of [0, 1];"
     >
-        <app-replica-block
-        *ngFor="let replicaEl of replicaLists[a]; let i = index"
-        [replica]="replicaEl"
-        [index]="i"></app-replica-block>
+        <div *ngFor="let replicaEl of replicaLists[a]; let i = index">
+            <app-replica-block
+            [ngClass]="{
+                undisplayed:
+                    searchWord.length > 0 &&
+                    replicaEl.name.toLowerCase().indexOf(searchWord.toLowerCase()) == -1 &&
+                    replicaEl.artist.toLowerCase().indexOf(searchWord.toLowerCase()) == -1 &&
+                    replicaEl.origin.toLowerCase().indexOf(searchWord.toLowerCase()) == -1
+                }"
+            [replica]="replicaEl"
+            [index]="i"></app-replica-block>
+        </div>
     </div>
 </section>
 <section *ngIf="columnSize == 1" class="col-1">
     <div
         *ngFor="let a of [0];"
     >
-        <app-replica-block
-        *ngFor="let replicaEl of replicaLists[a]; let i = index"
-        [replica]="replicaEl"
-        [index]="i"></app-replica-block>
+        <div *ngFor="let replicaEl of replicaLists[a]; let i = index">
+            <app-replica-block
+            [ngClass]="{
+                undisplayed:
+                    searchWord.length > 0 &&
+                    replicaEl.name.toLowerCase().indexOf(searchWord.toLowerCase()) == -1 &&
+                    replicaEl.artist.toLowerCase().indexOf(searchWord.toLowerCase()) == -1 &&
+                    replicaEl.origin.toLowerCase().indexOf(searchWord.toLowerCase()) == -1
+                }"
+            [replica]="replicaEl"
+            [index]="i"></app-replica-block>
+        </div>
     </div>
 </section>
+<div class="search">
+    <input type="text" placeholder="Search..." [(ngModel)]="searchWord" (blur)="resetSearchWord()"/>
+    <button>
+        <img src="../../assets/icons/search.svg" />
+    </button>
+</div>

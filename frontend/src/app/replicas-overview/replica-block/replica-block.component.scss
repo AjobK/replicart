@@ -1,9 +1,17 @@
 @import '../../variables';
 
+:host.undisplayed {
+    > article {
+        opacity: 0.2;
+    }
+}
+
 article {
+    transition: 0.2s;
     background-color: rgba(0,0,0,0.25);
     margin-bottom: 2vw;
     position: relative;
+    opacity: 1;
 
     > img {
         width: 100%;

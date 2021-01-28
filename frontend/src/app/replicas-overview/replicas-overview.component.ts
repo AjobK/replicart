@@ -15,6 +15,7 @@ export class ReplicasOverviewComponent implements OnInit {
     replicas: Replica[];
     replicaLists = []
     replicasChangedSubscription: Subscription;
+    searchWord: string = '';
 
     constructor(private replicaService: ReplicaService) { }
 
@@ -95,6 +96,10 @@ export class ReplicasOverviewComponent implements OnInit {
             this.columnSize = newColumnSize;
             this.buildReplicaLists();
         }
+    }
+
+    resetSearchWord(): void {
+        this.searchWord = '';
     }
 
     ngOnDestroy(): void {
