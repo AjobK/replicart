@@ -41,9 +41,13 @@ section {
     background-color: darken($background-color, 5%);
     border: 1px solid rgba(0,0,0,0.1);
 
+    @media only screen and (max-width: $mobile) {
+        left: 0;
+    }
+
     > input {
-        outline: none;
         width: 100%;
+        outline: none;
         transition: 0.2s;
         border: none;
         border-radius: 100vh;
@@ -51,10 +55,6 @@ section {
         padding: 10px 0 10px 20px;
         font-size: 12pt;
         line-height: 12pt;
-
-        &.closed {
-            width: 0%;
-        }
     }
 
     > button {
